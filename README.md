@@ -10,7 +10,9 @@ Style Sync is a personalized fashion recommendation and social shopping platform
 
 Finding the perfect outfit that suits your personal needs involves considerations of body type, style, and budget. Style Sync simplifies this process by connecting users with similar tastes, making it easier to shop for outfits they will love.
 
-Market Research shows that similar fashion apps primarily focus on connecting customers with designers. However, Style Sync aims to connect provide users with a more casual experience, connecting them with other people with similar body styles and fashion tastes, growing a healthy community.
+Market Research shows that similar fashion apps primarily focus on connecting customers with designers. While social media apps (Twitter, Facebook, etc) can be used to connect users based on fashion interests, they lack functionality to allow users to discover new outfits easily.
+
+Style Sync aims to connect provide users with a more casual experience, connecting them with other people with similar body styles and fashion tastes, growing a healthy community.
 
 ### User Profile
 
