@@ -29,7 +29,7 @@ Style Sync aims to connect provide users with a more casual experience, connecti
 
 **Discover Similar Styles:**
 
--   Users can browse profiles of others with similar body types and styles.
+-   Users can browse profiles of others to find users with similar body types and styles.
 -   View outfits shared by community members for inspiration.
 
 **Budget-Friendly Recommendations:**
@@ -39,12 +39,11 @@ Style Sync aims to connect provide users with a more casual experience, connecti
 **Outfit Sharing:**
 
 -   Users can upload pictures of their outfits to share with the community.
--   Automatically provides links to purchase the item or the entire outfit directly.
+-   Automatically provides links to purchase the item or the entire outfit directly if bought through the app link.
 
 **User Rating System:**
 
 -   Users seeking guidance can rate individuals who provide fashion suggestions.
--   Upvote with specified tags like "friendly," "economical," or other relevant descriptors.
 
 **Recommendation Tags:**
 
@@ -57,9 +56,14 @@ Style Sync aims to connect provide users with a more casual experience, connecti
 
 1. **Frontend:**
     - React
+    - react-router
+    - axios
 2. **Backend:**
     - Node JS
     - Express
+    - MySQL
+    - knex
+    - bycrypt
 
 #### APIs
 
@@ -74,6 +78,10 @@ Style Sync aims to connect provide users with a more casual experience, connecti
 
 -   Landing page displaying featured and trending users with similar styles.
 -   Navigation to other sections of the app.
+
+#### Register Page
+
+#### Login Page
 
 ##### User Profile:
 
@@ -95,7 +103,17 @@ Style Sync aims to connect provide users with a more casual experience, connecti
 -   Form for users to upload and share their outfits.
 -   Include tags and details about each item.
 
+### Mockups
+
+-   All Mockups, including Database Schema are very much WIP
+
+![landing page](public/Mockups/landing-page.png)
+
+![Outfit details page](public/Mockups/outfit-details-page.png)
+
 #### Data
+
+![Database Schema](public/Mockups/database-schema.png)
 
 **User Profile Data:**
 
@@ -106,28 +124,6 @@ Style Sync aims to connect provide users with a more casual experience, connecti
 
 -   Attributes: OutfitID, UserID (Uploader), Image URL, Item Details (Name, Brand, Price, Purchase Link).
 -   Relationships: Many-to-One with User Profile (Uploader), Many-to-Many with Ratings and Tags.
-
-### Mockups
-
--   All Mockups, including Database Schema are very much WIP
-
-![landing page](public/Mockups/landing-page.png)
-
-![Outfit details page](public/Mockups/outfit-details-page.png)
-
-![Database Schema](public/Mockups/database-schema.png)
-
-### Data
-
-**User Profile Data:**
-
--   Attributes: UserID, Username, Height, Weight, Style Preferences, Budget Constraints.
--   Relationships: One-to-Many with Purchases, Uploaded Outfits, Ratings, and Recommendations.
-
-**Uploaded Outfits Data:**
-
--   Attributes: OutfitID, UserID (Uploader), Image URL, Item Details (Name, Brand, Price, Purchase Link).
--   Relationships: One-to-Many with Purchases
 
 ### Endpoints
 
@@ -169,9 +165,42 @@ Response:
 }
 ```
 
-**GET/POST /outfits/outfitId**
+**GET /outfits/outfitId**
 
--   likewise for the outfit endpoints
+-   Retrieve outfit profile
+
+Parameters:
+
+-   outfitId
+
+Response:
+```
+{
+    "id":" 20,
+    "brand": "Nike",
+    "type": "shirt",
+    "color": "red",
+    "tags" : ["casual", "autumn"],
+}
+```
+
+**POST /outfits**
+
+-    Post a new outfit for a signed in user
+
+Parameters:
+
+-    header auth token, brand, type, color, etc.
+
+Response:
+```
+{
+    "id":" 20,
+    "brand": "Nike",
+    "type": "shirt",
+    "color": "red",
+}
+```
 
 #### Auth
 
@@ -212,8 +241,8 @@ Response:
 
 ### Basic Recommendation System :
 
--   Recommendation system based on user preferences and tags.
+-   Recommendation system based on user preferences, tags, and likes.
 
 ### Notification System :
 
--   Basic notification system for likes and comments.
+-   Basic notification system for new items, followed users, etc.
