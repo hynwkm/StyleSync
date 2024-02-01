@@ -1,6 +1,4 @@
-# Project Title
-
-Style Sync : Like My Fit?
+# Style Sync : Like My Fit?
 
 ## Overview
 
