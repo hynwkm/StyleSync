@@ -10,11 +10,17 @@ export default function Header(props: { isLoggedIn: boolean }) {
         e.stopPropagation();
         navigate("/login");
     }
+    function toProfile(e: React.MouseEvent): void {
+        e.stopPropagation();
+        navigate("/profile");
+    }
     return (
         <header className="header" onClick={toHome}>
             <h1 className="header__logo">Style Sync</h1>
             {props.isLoggedIn ? (
-                <p className="header__login">Profile</p>
+                <p className="header__login" onClick={toProfile}>
+                    Profile
+                </p>
             ) : (
                 <p className="header__login" onClick={toLogin}>
                     Login

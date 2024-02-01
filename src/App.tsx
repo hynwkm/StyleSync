@@ -15,6 +15,7 @@ function App() {
         localStorage.getItem("token") ? true : false
     );
     const [userList, setUserList] = useState<User[]>([]);
+    const [currentUserDetails, setCurrentUserDetails] = useState<User>();
 
     function setUsersList(users: User[]) {
         setUserList(users);
@@ -44,16 +45,17 @@ function App() {
                             />
                         }
                     />
-                    <Route path="/outfits/:outfitId" element={<OutfitPage />} />
+
                     <Route
                         path="/login"
                         element={<LoginPage login={login} />}
                     />
-                    <Route path="/user" element={<UserProfilePage />} />
                     <Route
                         path="/signup"
                         element={<SignupPage login={login} />}
                     />
+                    <Route path="/profile" element={<UserProfilePage />} />
+                    <Route path="/outfits/:outfitId" element={<OutfitPage />} />
                 </Routes>
             </BrowserRouter>
             {/* <Footer /> */}
