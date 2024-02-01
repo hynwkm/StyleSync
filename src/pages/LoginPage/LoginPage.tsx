@@ -5,7 +5,7 @@ import "./LoginPage.scss";
 
 const API_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
 
-export default function LoginPage() {
+export default function LoginPage(props: { login: () => void }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
@@ -27,6 +27,9 @@ export default function LoginPage() {
         e: FormEvent<HTMLFormElement>
     ): Promise<void> => {
         e.preventDefault();
+        setEmailError(false);
+        setPasswordError(false);
+        setErrorMsg("");
 
         if (!email) {
             setEmailError(true);
@@ -40,16 +43,23 @@ export default function LoginPage() {
         }
 
         try {
-            const response = await axios.get(`${API_URL}/api/login`);
+            const response = await axios.post(`${API_URL}/api/login`, {
+                email,
+                password,
+            });
             const token = response.data.token;
+            console.log(token);
             localStorage.setItem("token", token);
-            navigate("/");
+            props.login();
+            setErrorMsg("Sign In Success!");
+            setTimeout(() => navigate("/"), 3000);
         } catch (error) {
+            console.error(error);
             let message = "An unexpected error occurred"; // Default error message
             if (axios.isAxiosError(error)) {
                 if (error.response) {
                     message =
-                        error.response.data.message ||
+                        error.response.data ||
                         "Login failed. Please try again.";
                 } else if (error.request) {
                     message =

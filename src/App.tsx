@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
+import User from "./models/users";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import OutfitPage from "./pages/OutfitPage/OutfitPage";
@@ -10,7 +11,23 @@ import SignupPage from "./pages/SignupPage/SignupPage";
 import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(
+        localStorage.getItem("token") ? true : false
+    );
+    const [userList, setUserList] = useState<User[]>([]);
+
+    function setUsersList(users: User[]) {
+        setUserList(users);
+    }
+
+    function login() {
+        setIsLoggedIn(true);
+    }
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        setIsLoggedIn(!!token);
+    }, []);
 
     return (
         <div className="App">
@@ -19,12 +36,24 @@ function App() {
                 <Routes>
                     <Route
                         path="/"
-                        element={<LandingPage isLoggedIn={isLoggedIn} />}
+                        element={
+                            <LandingPage
+                                isLoggedIn={isLoggedIn}
+                                userList={userList}
+                                setUserList={setUsersList}
+                            />
+                        }
                     />
                     <Route path="/outfits/:outfitId" element={<OutfitPage />} />
-                    <Route path="/login" element={<LoginPage />} />
+                    <Route
+                        path="/login"
+                        element={<LoginPage login={login} />}
+                    />
                     <Route path="/user" element={<UserProfilePage />} />
-                    <Route path="/signup" element={<SignupPage />} />
+                    <Route
+                        path="/signup"
+                        element={<SignupPage login={login} />}
+                    />
                 </Routes>
             </BrowserRouter>
             {/* <Footer /> */}
