@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 
 export default function UserForm() {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
 
-    function usernameChangeHandler(e) {
+    function usernameChangeHandler(e: {
+        username: { value: SetStateAction<undefined> };
+    }) {
         setUsername(e.username.value);
     }
-    function passwordChangeHandler(e) {
+    function passwordChangeHandler(e: {
+        password: { value: SetStateAction<undefined> };
+    }) {
         setPassword(e.password.value);
     }
 
@@ -15,7 +19,7 @@ export default function UserForm() {
     return (
         <form onSubmit={submitHandler}>
             <h1>User Signup</h1>
-            <label htmlFor="username">
+            {/* <label htmlFor="username">
                 <input
                     type="text"
                     name="username"
@@ -31,7 +35,7 @@ export default function UserForm() {
                     value={password}
                 />
             </label>
-            <button type="submit" />
+            <button type="submit" /> */}
         </form>
     );
 }
