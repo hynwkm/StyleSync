@@ -1,0 +1,119 @@
+@use "../../styles/mixin" as *;
+@use "../../styles/variables" as *;
+@use "../../styles/typography" as *;
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    background-color: white;
+    gap: 1rem;
+    padding: 2rem; // Ensures consistent padding around the form
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Adds a subtle shadow for depth
+    border-radius: 0.5rem;
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: flex-end;
+        margin-bottom: 1.25rem; // Adjust based on your layout
+
+        &__image {
+            width: 100px; // Adjust size as needed
+            height: 100px; // Adjust size as needed
+            border-radius: 50%; // Circular profile image
+            margin: 0 auto; // Center the image
+            display: block;
+        }
+    }
+
+    &__content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        background-color: white;
+        gap: 1rem;
+        padding: 2rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    &__form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        width: 100%;
+    }
+
+    &__columns {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        .column {
+            flex: 1;
+            &:not(:last-child) {
+                margin-right: 10px; // Adjust spacing between columns
+            }
+        }
+    }
+
+    &__detail,
+    &__input {
+        width: 100%;
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+
+        &:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+    }
+
+    &__detail--error {
+        border: 1px solid red;
+    }
+
+    &__label {
+        display: block;
+        margin-bottom: 0.5rem;
+        text-align: left;
+    }
+
+    &__edit-submit {
+        @include buttonlike;
+        padding: 0.75rem 1.5rem;
+        width: auto;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: darken($color: #007bff, $amount: 5%);
+        }
+    }
+
+    &__toggle-edit {
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+
+        &:hover {
+            color: $secondary-font;
+            background-color: $secondary-bg;
+        }
+    }
+    &__image-input {
+        width: 1px;
+        height: 1px;
+        color: white;
+    }
+    &__image-label {
+        @include buttonlike;
+    }
+}

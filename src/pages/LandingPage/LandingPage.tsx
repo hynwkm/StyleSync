@@ -40,6 +40,7 @@ export default function LandingPage({
         };
         getUsers();
     }, [isLoggedIn, setUserList]);
+
     if (userList.length === -1) {
         return <></>;
     }
