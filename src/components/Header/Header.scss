@@ -1,0 +1,27 @@
+@use "../../styles/mixin" as *;
+@use "../../styles/variables" as *;
+@use "../../styles/typography" as *;
+
+.header {
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid $primary-font;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); // Adds a subtle shadow for depth
+    align-items: center;
+
+    &__logo {
+        font-family: Pacifico, Cursive, "Brush Script MT", "Comic Sans MS",
+            "Dancing Script", Arial, sans-serif;
+        color: $primary-font;
+        cursor: pointer;
+        &:hover {
+            color: $secondary-font;
+        }
+    }
+    &__login {
+        padding: 2rem;
+        @include buttonlike;
+    }
+}
