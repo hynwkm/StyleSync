@@ -36,7 +36,7 @@ export default function Header(props: {
         <header className="header" onClick={toHome}>
             <h1 className="header__logo">Style Sync</h1>
             {props.isLoggedIn ? (
-                <div className="header__actions">
+                <div className="header__actions" onMouseOut={hideLogout}>
                     <p
                         className="header__login"
                         onClick={toProfile}
@@ -45,7 +45,7 @@ export default function Header(props: {
                     </p>
                     <p
                         className={`header__logout ${
-                            logoutShown ? "" : "header__logout--hide"
+                            logoutShown ? "header__logout--shown" : ""
                         }`}
                         onClick={toLogout}
                         onMouseEnter={showLogout}

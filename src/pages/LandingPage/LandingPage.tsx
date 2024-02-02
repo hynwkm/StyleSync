@@ -40,7 +40,6 @@ export default function LandingPage({
         };
         getUsers();
     }, [isLoggedIn, setUserList]);
-
     if (userList.length === -1) {
         return <></>;
     }
@@ -52,7 +51,13 @@ export default function LandingPage({
                 {
                     <>
                         {userList.map((user: User) => {
-                            return <Card cardDetails={user} key={user.id} />;
+                            return (
+                                <Card
+                                    cardDetails={user}
+                                    key={user.id}
+                                    userId={user.id}
+                                />
+                            );
                         })}
                     </>
                 }

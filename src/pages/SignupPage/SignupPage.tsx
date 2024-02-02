@@ -81,7 +81,7 @@ export default function SignupPage(props: { login: () => void }) {
             localStorage.setItem("token", token);
             props.login();
             setErrorMsg("Sign up Success!");
-            setTimeout(() => navigate("/"), 3000);
+            setTimeout(() => navigate("/"), 2000);
         } catch (error) {
             console.log(error);
             let message = "An unexpected error occurred"; // Default error message

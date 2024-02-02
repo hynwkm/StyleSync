@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Outfits from "../../components/Outfits/Outfits";
 import User from "../../models/users";
 import "./UserProfilePage.scss";
 
@@ -169,185 +170,189 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
     }
 
     return (
-        <form className="content profile" onSubmit={handleSubmit}>
-            <div className="profile__header">
-                <h2>Welcome back, {profile.username}</h2>
-                <p>Rating is: {profile.rating ? profile.rating : "0"}/5</p>
-                <div className="profile__picture-wrapper">
-                    <div className="profile__image-container">
-                        {formData.profile_pic ? (
-                            <img
-                                src={formData.profile_pic}
-                                alt="Profile"
-                                className="profile__image"
-                            />
-                        ) : (
-                            <div className="profile__image profile__image--empty" />
-                        )}
-                    </div>
-                    <label
-                        htmlFor="profile_pic"
-                        className={`profile__image-label ${
-                            readOnly ? "readonly readonly--pic" : ""
-                        }`}>
-                        Choose a Profile Picture
-                        <input
-                            type="file"
-                            name="profile_pic"
-                            className={`profile__image-input ${
+        <>
+            {" "}
+            <form className="content profile" onSubmit={handleSubmit}>
+                <div className="profile__header">
+                    <h2>Welcome back, {profile.username}</h2>
+                    <p>Rating is: {profile.rating ? profile.rating : "0"}/5</p>
+                    <div className="profile__picture-wrapper">
+                        <div className="profile__image-container">
+                            {formData.profile_pic ? (
+                                <img
+                                    src={formData.profile_pic}
+                                    alt="Profile"
+                                    className="profile__image"
+                                />
+                            ) : (
+                                <div className="profile__image profile__image--empty" />
+                            )}
+                        </div>
+                        <label
+                            htmlFor="profile_pic"
+                            className={`profile__image-label ${
                                 readOnly ? "readonly readonly--pic" : ""
+                            }`}>
+                            Choose a Profile Picture
+                            <input
+                                type="file"
+                                name="profile_pic"
+                                className={`profile__image-input ${
+                                    readOnly ? "readonly readonly--pic" : ""
+                                }`}
+                                id="profile_pic"
+                                ref={fileInputRef}
+                                onChange={handleFileChange}
+                                disabled={readOnly}
+                            />
+                        </label>
+                    </div>
+                </div>
+                <div className="profile__form">
+                    <div className="profile__columns">
+                        <div className="column">
+                            <div className="profile__detail">
+                                <label htmlFor="username">
+                                    <strong>Username: </strong>
+                                </label>
+                                <input
+                                    type="username"
+                                    id="username"
+                                    name="username"
+                                    className={`${readOnly ? "readonly" : ""}`}
+                                    value={formData.username}
+                                    onChange={handleChange}
+                                    readOnly={readOnly}
+                                />
+                            </div>
+                            <div className="profile__detail">
+                                <label htmlFor="dob">
+                                    <strong>Date of Birth: </strong>
+                                </label>
+                                <input
+                                    type="date"
+                                    id="dob"
+                                    name="dob"
+                                    className={`${readOnly ? "readonly" : ""}`}
+                                    value={formData.dob}
+                                    onChange={handleChange}
+                                    readOnly={readOnly}
+                                />
+                            </div>
+                            <div className="profile__detail">
+                                <label htmlFor="gender">
+                                    <strong>Gender: </strong>
+                                </label>
+                                <select
+                                    id="gender"
+                                    name="gender"
+                                    className={`${readOnly ? "readonly" : ""}`}
+                                    value={formData.gender}
+                                    onChange={handleChange}
+                                    disabled={readOnly}>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="column">
+                            <div className="profile__detail">
+                                <label htmlFor="height">
+                                    <strong>Height (cm): </strong>
+                                </label>
+                                <input
+                                    type="number"
+                                    id="height"
+                                    name="height"
+                                    className={`${readOnly ? "readonly" : ""}`}
+                                    value={formData.height}
+                                    onChange={handleChange}
+                                    readOnly={readOnly}
+                                />
+                            </div>
+                            <div className="profile__detail">
+                                <label htmlFor="weight">
+                                    <strong>Weight (kg): </strong>
+                                </label>
+                                <input
+                                    type="number"
+                                    id="weight"
+                                    name="weight"
+                                    className={`${readOnly ? "readonly" : ""}`}
+                                    value={formData.weight}
+                                    onChange={handleChange}
+                                    readOnly={readOnly}
+                                />
+                            </div>
+                            <div className="profile__detail">
+                                <label htmlFor="budget">
+                                    <strong>Budget ($): </strong>
+                                </label>
+                                <input
+                                    type="number"
+                                    id="budget"
+                                    name="budget"
+                                    className={`${readOnly ? "readonly" : ""}`}
+                                    value={formData.budget}
+                                    onChange={handleChange}
+                                    readOnly={readOnly}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="profile__detail">
+                        <label htmlFor="bio">
+                            <strong>Bio: </strong>
+                        </label>
+                        <textarea
+                            id="bio"
+                            name="bio"
+                            className={`profile__text-area ${
+                                readOnly ? "readonly" : ""
                             }`}
-                            id="profile_pic"
-                            ref={fileInputRef}
-                            onChange={handleFileChange}
+                            value={formData.bio}
+                            onChange={handleChange}
+                            readOnly={readOnly}></textarea>
+                    </div>
+                    <div className="profile__detail">
+                        <input
+                            type="checkbox"
+                            id="profile_visibility"
+                            name="profile_visibility"
+                            className={`${readOnly ? "readonly" : ""}`}
+                            checked={formData.profile_visibility}
+                            onChange={handleChange}
                             disabled={readOnly}
                         />
-                    </label>
-                </div>
-            </div>
-            <div className="profile__form">
-                <div className="profile__columns">
-                    <div className="column">
-                        <div className="profile__detail">
-                            <label htmlFor="username">
-                                <strong>Username: </strong>
-                            </label>
-                            <input
-                                type="username"
-                                id="username"
-                                name="username"
-                                className={`${readOnly ? "readonly" : ""}`}
-                                value={formData.username}
-                                onChange={handleChange}
-                                readOnly={readOnly}
-                            />
-                        </div>
-                        <div className="profile__detail">
-                            <label htmlFor="dob">
-                                <strong>Date of Birth: </strong>
-                            </label>
-                            <input
-                                type="date"
-                                id="dob"
-                                name="dob"
-                                className={`${readOnly ? "readonly" : ""}`}
-                                value={formData.dob}
-                                onChange={handleChange}
-                                readOnly={readOnly}
-                            />
-                        </div>
-                        <div className="profile__detail">
-                            <label htmlFor="gender">
-                                <strong>Gender: </strong>
-                            </label>
-                            <select
-                                id="gender"
-                                name="gender"
-                                className={`${readOnly ? "readonly" : ""}`}
-                                value={formData.gender}
-                                onChange={handleChange}
-                                disabled={readOnly}>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="">Other</option>
-                            </select>
-                        </div>
+                        <label htmlFor="profile_visibility">
+                            <strong>Profile Visibility</strong>
+                        </label>
                     </div>
-                    <div className="column">
-                        <div className="profile__detail">
-                            <label htmlFor="height">
-                                <strong>Height (cm): </strong>
-                            </label>
-                            <input
-                                type="number"
-                                id="height"
-                                name="height"
-                                className={`${readOnly ? "readonly" : ""}`}
-                                value={formData.height}
-                                onChange={handleChange}
-                                readOnly={readOnly}
-                            />
-                        </div>
-                        <div className="profile__detail">
-                            <label htmlFor="weight">
-                                <strong>Weight (kg): </strong>
-                            </label>
-                            <input
-                                type="number"
-                                id="weight"
-                                name="weight"
-                                className={`${readOnly ? "readonly" : ""}`}
-                                value={formData.weight}
-                                onChange={handleChange}
-                                readOnly={readOnly}
-                            />
-                        </div>
-                        <div className="profile__detail">
-                            <label htmlFor="budget">
-                                <strong>Budget ($): </strong>
-                            </label>
-                            <input
-                                type="number"
-                                id="budget"
-                                name="budget"
-                                className={`${readOnly ? "readonly" : ""}`}
-                                value={formData.budget}
-                                onChange={handleChange}
-                                readOnly={readOnly}
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div className="profile__detail">
-                    <label htmlFor="bio">
-                        <strong>Bio: </strong>
-                    </label>
-                    <textarea
-                        id="bio"
-                        name="bio"
-                        className={`profile__text-area ${
-                            readOnly ? "readonly" : ""
-                        }`}
-                        value={formData.bio}
-                        onChange={handleChange}
-                        readOnly={readOnly}></textarea>
-                </div>
-                <div className="profile__detail">
-                    <input
-                        type="checkbox"
-                        id="profile_visibility"
-                        name="profile_visibility"
-                        className={`${readOnly ? "readonly" : ""}`}
-                        checked={formData.profile_visibility}
-                        onChange={handleChange}
-                        disabled={readOnly}
-                    />
-                    <label htmlFor="profile_visibility">
-                        <strong>Profile Visibility</strong>
-                    </label>
-                </div>
-                {readOnly ? (
-                    <button
-                        className="profile__button profile__button--edit"
-                        onClick={editProfile}>
-                        Edit Profile
-                    </button>
-                ) : (
-                    <>
+                    {readOnly ? (
                         <button
-                            type="submit"
-                            className="profile__button profile__button--save">
-                            Save Profile
-                        </button>
-                        <button
-                            className="profile__button profile__button--cancel"
+                            className="profile__button profile__button--edit"
                             onClick={editProfile}>
-                            Cancel
+                            Edit Profile
                         </button>
-                    </>
-                )}
-            </div>
-        </form>
+                    ) : (
+                        <>
+                            <button
+                                type="submit"
+                                className="profile__button profile__button--save">
+                                Save Profile
+                            </button>
+                            <button
+                                className="profile__button profile__button--cancel"
+                                onClick={editProfile}>
+                                Cancel
+                            </button>
+                        </>
+                    )}
+                </div>
+            </form>
+            <Outfits />
+        </>
     );
 };
 

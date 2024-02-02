@@ -1,0 +1,52 @@
+.outfits {
+    padding: 2rem;
+    background-color: white; // Main container background color
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    margin: 2rem; // Ensures the component is centered
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+
+    &__list {
+        display: flex;
+        justify-content: start; // Adjusted to 'start' for consistent alignment
+        gap: 1rem;
+        overflow-x: auto; // Allows for horizontal scrolling
+    }
+
+    &__item {
+        width: 18rem; // Sets a fixed width
+        height: 18rem; // Sets height equal to width for a square appearance
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border-radius: 8px;
+        position: relative;
+        background-color: #f8f8f8; // Almost white background color for items
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Optional: adds subtle shadow for depth
+
+        &:hover &__image {
+            transform: scale(1.1); // Zoom effect on hover
+        }
+    }
+
+    &__image {
+        width: 100%; // Ensures the image covers the item width
+        height: 100%; // Ensures the image covers the item height, making it square
+        object-fit: cover; // Ensures the image covers the area, may crop
+        transition: transform 0.3s ease; // Smooth zoom transition
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+    }
+    &__details {
+        display: flex;
+        gap: 1rem;
+    }
+    &__details-image {
+        width: 50%;
+    }
+}

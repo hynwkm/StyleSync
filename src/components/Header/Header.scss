@@ -35,8 +35,9 @@
         left: 0;
         top: 100%; // Adjust as necessary
         width: 100%;
-        &--hide {
-            display: none;
+        display: none;
+        &--shown {
+            display: block;
         }
     }
 }
