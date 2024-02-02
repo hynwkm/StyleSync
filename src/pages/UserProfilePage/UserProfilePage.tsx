@@ -3,12 +3,7 @@ import React, { useEffect, useState } from "react";
 import User from "../../models/users";
 import "./UserProfilePage.scss";
 
-const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
 const API_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
-const IMG_API_URL =
-    process.env.REACT_APP_IMG_API_URL || "https://freeimage.host/api/1/upload";
-const IMG_API_KEY =
-    process.env.REACT_APP_IMG_API_KEY || "6d207e02198a847aa98d0a2a901485a5";
 
 // If there are no props needed, you can omit this part or extend it in the future
 interface UserProfilePageProps {}
@@ -100,17 +95,14 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files ? e.target.files[0] : null;
         if (file) {
+            // Create a temporary URL for the selected file
             const fileURL = URL.createObjectURL(file);
-            setProfile((prevProfile) => {
-                if (prevProfile === null) {
-                    return null;
-                } else {
-                    return {
-                        ...prevProfile,
-                        profile_pic: fileURL,
-                    };
-                }
-            });
+
+            // Update formData state instead of profile
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                profile_pic: fileURL, // Update the profile_pic property with the temporary URL
+            }));
         }
     };
     function editProfile(e: React.MouseEvent<HTMLButtonElement>) {
@@ -135,33 +127,11 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                 try {
                     const encodedImage = reader.result;
                     if (typeof encodedImage === "string") {
-                        const formData = new FormData();
-                        formData.append("key", IMG_API_KEY);
-                        formData.append("action", "upload");
-                        formData.append("source", encodedImage);
-                        formData.append("format", "json");
-
-                        const uploadResponse = await axios.post(
-                            `${PROXY_URL}${IMG_API_URL}`,
-                            formData,
-                            {
-                                headers: {
-                                    "Content-Type": "multipart/form-data",
-                                },
-                            }
-                        );
-
-                        // Assuming the API returns the URL of the uploaded image in the response body
-                        const imageUrl = uploadResponse.data.data.image.url;
-
-                        // Update the profile picture URL in your form data before submitting the profile update
                         const updatedFormData = {
                             ...formData,
-                            profile_pic: imageUrl,
+                            profile_pic: encodedImage,
                         };
 
-                        // Submit the updated profile data
-                        // Ensure you have the correct URL and headers for your profile update API call
                         try {
                             const profileUpdateResponse = await axios.put(
                                 `${API_URL}/api/profile`,
@@ -201,38 +171,37 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
 
     return (
         <form className="content profile" onSubmit={handleSubmit}>
-            {/* Profile Header */}
             <div className="profile__header">
                 <h2>Welcome back, {profile.username}</h2>
                 <p>Rating is: {profile.rating ? profile.rating : "0"}/5</p>
                 <div className="profile__picture-wrapper">
                     <div className="profile__image-container">
-                        {profile.profile_pic ? (
+                        {formData.profile_pic ? (
                             <img
-                                src={profile.profile_pic}
+                                src={formData.profile_pic}
                                 alt="Profile"
                                 className="profile__image"
                             />
                         ) : (
-                            <div className="profile__image"></div>
+                            <div className="profile__image profile__image--empty" />
                         )}
-                        <img
-                            src={profile.profile_pic}
-                            alt="Profile"
-                            className="profile__image"
-                        />
                     </div>
                     <label
                         htmlFor="profile_pic"
-                        className="profile__image-label">
+                        className={`profile__image-label ${
+                            readOnly ? "readonly readonly--pic" : ""
+                        }`}>
                         Choose a Profile Picture
                         <input
                             type="file"
                             name="profile_pic"
-                            className="profile__image-input"
+                            className={`profile__image-input ${
+                                readOnly ? "readonly readonly--pic" : ""
+                            }`}
                             id="profile_pic"
                             ref={fileInputRef}
                             onChange={handleFileChange}
+                            disabled={readOnly}
                         />
                     </label>
                 </div>

@@ -20,11 +20,7 @@
         margin-bottom: 1.25rem; // Adjust based on your layout
         flex-direction: column;
         gap: 1rem;
-
-        &__image {
-        }
     }
-
     &__content {
         width: 100%;
         display: flex;
@@ -113,6 +109,7 @@
         border-radius: 50%; // Circular profile image
         margin: 0 auto; // Center the image
         display: block;
+        background-color: lightgrey;
     }
     &__picture-wrapper {
         gap: 1rem;
@@ -144,4 +141,7 @@
 
 .readonly {
     cursor: auto;
+    &--pic {
+        display: none;
+    }
 }
