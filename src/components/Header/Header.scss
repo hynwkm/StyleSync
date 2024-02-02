@@ -21,7 +21,22 @@
         }
     }
     &__login {
-        padding: 2rem;
         @include buttonlike;
+        // padding: 2rem;
+    }
+    &__actions {
+        position: relative;
+    }
+    &__logout {
+        @include buttonlike;
+        background-color: white;
+        color: $highlight-font;
+        position: absolute;
+        left: 0;
+        top: 100%; // Adjust as necessary
+        width: 100%;
+        &--hide {
+            display: none;
+        }
     }
 }

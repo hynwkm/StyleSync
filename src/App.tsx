@@ -15,7 +15,6 @@ function App() {
         localStorage.getItem("token") ? true : false
     );
     const [userList, setUserList] = useState<User[]>([]);
-    const [currentUserDetails, setCurrentUserDetails] = useState<User>();
 
     function setUsersList(users: User[]) {
         setUserList(users);
@@ -23,6 +22,9 @@ function App() {
 
     function login() {
         setIsLoggedIn(true);
+    }
+    function logout() {
+        setIsLoggedIn(false);
     }
 
     useEffect(() => {
@@ -33,7 +35,7 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter>
-                <Header isLoggedIn={isLoggedIn} />
+                <Header isLoggedIn={isLoggedIn} logout={logout} />
                 <Routes>
                     <Route
                         path="/"
