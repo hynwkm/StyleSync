@@ -19,7 +19,7 @@ export default function Header(props: { isLoggedIn: boolean }) {
             <h1 className="header__logo">Style Sync</h1>
             {props.isLoggedIn ? (
                 <p className="header__login" onClick={toProfile}>
-                    Profile
+                    My Profile
                 </p>
             ) : (
                 <p className="header__login" onClick={toLogin}>

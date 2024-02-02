@@ -9,6 +9,6 @@ export default interface User {
     rating: number;
     budget: number;
     bio: string;
-    profile_pic: string;
+    profile_pic: string | undefined;
     profile_visibility: boolean;
 }
