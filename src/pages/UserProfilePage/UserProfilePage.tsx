@@ -119,49 +119,48 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        let updatedFormData = formData; // Start with existing form data
         if (fileInputRef.current?.files?.[0]) {
             const file = fileInputRef.current.files[0];
             const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = async () => {
-                try {
-                    const encodedImage = reader.result;
-                    if (typeof encodedImage === "string") {
-                        const updatedFormData = {
-                            ...formData,
-                            profile_pic: encodedImage,
-                        };
 
-                        try {
-                            const profileUpdateResponse = await axios.put(
-                                `${API_URL}/api/profile`,
-                                updatedFormData,
-                                {
-                                    headers: {
-                                        Authorization: `Bearer ${token}`,
-                                    },
-                                }
-                            );
-                            setProfile(profileUpdateResponse.data);
-                            setFormData(profileUpdateResponse.data);
-                            setOriginalFormData(profileUpdateResponse.data);
-                            setReadOnly(true);
-                        } catch (profileUpdateError) {
-                            console.error(
-                                "Error updating profile:",
-                                profileUpdateError
-                            );
-                        }
-                    }
-                } catch (uploadError) {
-                    console.error("Error uploading image:", uploadError);
+            try {
+                const encodedImage = await new Promise((resolve, reject) => {
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = () => reject(reader.error);
+                    reader.readAsDataURL(file);
+                });
+
+                if (typeof encodedImage === "string") {
+                    updatedFormData = {
+                        ...formData,
+                        profile_pic: encodedImage,
+                    };
                 }
-            };
-            reader.onerror = () => {
-                console.error("Error reading file:", reader.error);
-            };
-        } else {
-            console.log("No file selected.");
+            } catch (error) {
+                console.error("Error processing file:", error);
+                return; // Exit the function if file processing fails
+            }
+        }
+
+        try {
+            const profileUpdateResponse = await axios.put(
+                `${API_URL}/api/profile`,
+                updatedFormData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            // Update state with the response
+            setProfile(profileUpdateResponse.data);
+            setFormData(profileUpdateResponse.data);
+            setOriginalFormData(profileUpdateResponse.data);
+            setReadOnly(true);
+        } catch (error) {
+            console.error("Error updating profile:", error);
         }
     };
 

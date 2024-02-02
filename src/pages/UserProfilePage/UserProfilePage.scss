@@ -101,15 +101,20 @@
             background-color: $secondary-bg;
         }
     }
-
+    &__image {
+        object-fit: cover;
+        object-position: center top;
+    }
     &__image-container {
-        width: 200px;
-        height: 200px;
-        overflow: hidden;
-        border-radius: 50%; // Circular profile image
-        margin: 0 auto; // Center the image
-        display: block;
+        align-items: center;
         background-color: lightgrey;
+        border-radius: 50%; // Circular profile image
+        display: flex;
+        height: 200px;
+        justify-content: center;
+        margin: 0 auto; // Center the image
+        overflow: hidden;
+        width: 200px;
     }
     &__picture-wrapper {
         gap: 1rem;
