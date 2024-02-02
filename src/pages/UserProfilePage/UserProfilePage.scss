@@ -6,7 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    flex-direction: column;
+    flex-direction: row;
     background-color: white;
     gap: 1rem;
     padding: 2rem; // Ensures consistent padding around the form
@@ -16,15 +16,12 @@
         display: flex;
         justify-content: space-between;
         width: 100%;
-        align-items: flex-end;
+        align-items: flex-start;
         margin-bottom: 1.25rem; // Adjust based on your layout
+        flex-direction: column;
+        gap: 1rem;
 
         &__image {
-            width: 100px; // Adjust size as needed
-            height: 100px; // Adjust size as needed
-            border-radius: 50%; // Circular profile image
-            margin: 0 auto; // Center the image
-            display: block;
         }
     }
 
@@ -44,7 +41,7 @@
     &__form {
         display: flex;
         flex-wrap: wrap;
-        gap: 2rem;
+        gap: 1rem;
         width: 100%;
     }
 
@@ -108,12 +105,43 @@
             background-color: $secondary-bg;
         }
     }
+
+    &__image-container {
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
+        border-radius: 50%; // Circular profile image
+        margin: 0 auto; // Center the image
+        display: block;
+    }
+    &__picture-wrapper {
+        gap: 1rem;
+        display: flex;
+        flex-direction: column;
+    }
     &__image-input {
         width: 1px;
         height: 1px;
         color: white;
+        cursor: pointer;
     }
     &__image-label {
         @include buttonlike;
     }
+    &__button {
+        @include buttonlike;
+        width: 100%;
+
+        &--cancel {
+            background-color: white;
+            color: $primary-font;
+        }
+    }
+    &__text-area {
+        width: 100%;
+    }
+}
+
+.readonly {
+    cursor: auto;
 }
