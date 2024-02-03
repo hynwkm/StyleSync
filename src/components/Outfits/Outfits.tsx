@@ -21,7 +21,6 @@ const Outfits: React.FC<OutfitsProps> = ({ userId }) => {
                     const response = await axios.get<Outfit[]>(
                         `${API_URL}/api/user/${userId}/outfits`
                     );
-                    console.log(userId);
                     setOutfits(response.data);
                 } else {
                     const token = localStorage.getItem("token");
@@ -35,7 +34,6 @@ const Outfits: React.FC<OutfitsProps> = ({ userId }) => {
                 console.log(error);
             }
         };
-
         fetchOutfits();
     }, [userId]);
 
@@ -75,15 +73,6 @@ const Outfits: React.FC<OutfitsProps> = ({ userId }) => {
                         className="outfits__details-image"
                     />
                     <div className="outfits__details-info">
-                        <p>Color: Red</p> {/* Hardcoded info */}
-                        <p>Type: Dress</p> {/* Hardcoded info */}
-                        <p>Rating: 4/5</p> {/* Hardcoded info */}
-                        <p>Price: $99</p> {/* Hardcoded info */}
-                        <p>
-                            Purchase Link:{" "}
-                            <a href="http://example.com">Buy Here</a>
-                        </p>{" "}
-                        {/* Hardcoded info */}
                         <p>Color: Red</p> {/* Hardcoded info */}
                         <p>Type: Dress</p> {/* Hardcoded info */}
                         <p>Rating: 4/5</p> {/* Hardcoded info */}

@@ -1,31 +1,31 @@
 .outfits {
-    padding: 2rem;
     background-color: white; // Main container background color
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
-    margin: 2rem; // Ensures the component is centered
-    gap: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    gap: 2rem;
+    margin: 2rem; // Ensures the component is centered
+    padding: 2rem;
 
     &__list {
         display: flex;
-        justify-content: start; // Adjusted to 'start' for consistent alignment
         gap: 1rem;
+        justify-content: start; // Adjusted to 'start' for consistent alignment
         overflow-x: auto; // Allows for horizontal scrolling
     }
 
     &__item {
-        width: 18rem; // Sets a fixed width
-        height: 18rem; // Sets height equal to width for a square appearance
-        display: flex;
-        justify-content: center;
         align-items: center;
-        overflow: hidden;
-        border-radius: 8px;
-        position: relative;
         background-color: #f8f8f8; // Almost white background color for items
+        border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Optional: adds subtle shadow for depth
+        display: flex;
+        height: 18rem; // Sets height equal to width for a square appearance
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+        width: 18rem; // Sets a fixed width
 
         &:hover &__image {
             transform: scale(1.1); // Zoom effect on hover
@@ -33,20 +33,27 @@
     }
 
     &__image {
-        width: 100%; // Ensures the image covers the item width
+        cursor: pointer;
         height: 100%; // Ensures the image covers the item height, making it square
+        left: 0;
         object-fit: cover; // Ensures the image covers the area, may crop
-        transition: transform 0.3s ease; // Smooth zoom transition
         position: absolute;
         top: 0;
-        left: 0;
-        cursor: pointer;
+        transition: transform 0.3s ease; // Smooth zoom transition
+        width: 100%; // Ensures the image covers the item width
     }
     &__details {
         display: flex;
         gap: 1rem;
     }
     &__details-image {
+        display: block; // Removes any inline spacing
+        max-height: 70vh; // Adjust the height to a percentage of the viewport height
+        max-width: 100%; // Ensure the image is not wider than its container
+        object-fit: contain; // This will make sure that the image is scaled to be as large as possible without cropping or stretching
         width: 50%;
+    }
+    &__details-info {
+        margin-left: 2rem;
     }
 }

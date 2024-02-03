@@ -95,14 +95,14 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files ? e.target.files[0] : null;
+
         if (file) {
             // Create a temporary URL for the selected file
             const fileURL = URL.createObjectURL(file);
 
-            // Update formData state instead of profile
             setFormData((prevFormData) => ({
                 ...prevFormData,
-                profile_pic: fileURL, // Update the profile_pic property with the temporary URL
+                profile_pic: fileURL,
             }));
         }
     };
@@ -204,6 +204,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                                 ref={fileInputRef}
                                 onChange={handleFileChange}
                                 disabled={readOnly}
+                                accept="image/*"
                             />
                         </label>
                     </div>
