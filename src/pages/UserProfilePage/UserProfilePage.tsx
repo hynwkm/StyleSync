@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Outfits from "../../components/Outfits/Outfits";
 import User from "../../models/users";
 import "./UserProfilePage.scss";
@@ -28,6 +29,8 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
 
     const token = localStorage.getItem("token");
     const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getProfile = async () => {
@@ -160,53 +163,61 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             setFormData(profileUpdateResponse.data);
             setOriginalFormData(profileUpdateResponse.data);
             setReadOnly(true);
+            navigate("/profile");
         } catch (error) {
             console.error("Error updating profile:", error);
         }
     };
-
+    function handleAddOutfit() {}
     if (!profile) {
         return <div>Loading profile...</div>;
     }
 
     return (
         <>
-            {" "}
             <form className="content profile" onSubmit={handleSubmit}>
                 <div className="profile__header">
-                    <h2>Welcome back, {profile.username}</h2>
+                    <h2>Hello {profile.username}</h2>
                     <p>Rating is: {profile.rating ? profile.rating : "0"}/5</p>
-                    <div className="profile__picture-wrapper">
-                        <div className="profile__image-container">
-                            {formData.profile_pic ? (
-                                <img
-                                    src={formData.profile_pic}
-                                    alt="Profile"
-                                    className="profile__image"
-                                />
-                            ) : (
-                                <div className="profile__image profile__image--empty" />
-                            )}
+
+                    <div className="profile__header--right">
+                        <div
+                            className="profile__add-outfit"
+                            onClick={handleAddOutfit}>
+                            Add Outfit
                         </div>
-                        <label
-                            htmlFor="profile_pic"
-                            className={`profile__image-label ${
-                                readOnly ? "readonly readonly--pic" : ""
-                            }`}>
-                            Choose a Profile Picture
-                            <input
-                                type="file"
-                                name="profile_pic"
-                                className={`profile__image-input ${
+                        <div className="profile__picture-wrapper">
+                            <div className="profile__image-container">
+                                {formData.profile_pic ? (
+                                    <img
+                                        src={formData.profile_pic}
+                                        alt="Profile"
+                                        className="profile__image"
+                                    />
+                                ) : (
+                                    <div className="profile__image profile__image--empty" />
+                                )}
+                            </div>
+                            <label
+                                htmlFor="profile_pic"
+                                className={`profile__image-label ${
                                     readOnly ? "readonly readonly--pic" : ""
-                                }`}
-                                id="profile_pic"
-                                ref={fileInputRef}
-                                onChange={handleFileChange}
-                                disabled={readOnly}
-                                accept="image/*"
-                            />
-                        </label>
+                                }`}>
+                                Choose a Profile Picture
+                                <input
+                                    type="file"
+                                    name="profile_pic"
+                                    className={`profile__image-input ${
+                                        readOnly ? "readonly readonly--pic" : ""
+                                    }`}
+                                    id="profile_pic"
+                                    ref={fileInputRef}
+                                    onChange={handleFileChange}
+                                    disabled={readOnly}
+                                    accept="image/*"
+                                />
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div className="profile__form">
@@ -288,7 +299,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                             </div>
                             <div className="profile__detail">
                                 <label htmlFor="budget">
-                                    <strong>Budget ($): </strong>
+                                    <strong>Outfit Budget ($): </strong>
                                 </label>
                                 <input
                                     type="number"

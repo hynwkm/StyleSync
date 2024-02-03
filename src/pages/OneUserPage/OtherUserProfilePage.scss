@@ -6,19 +6,18 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    flex-direction: row;
+    flex-direction: column;
     background-color: white;
     gap: 1rem;
     padding: 2rem; // Ensures consistent padding around the form
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Adds a subtle shadow for depth
     border-radius: 0.5rem;
     &__header {
         display: flex;
         justify-content: space-between;
         width: 100%;
-        align-items: flex-start;
+        align-items: center;
         margin-bottom: 1.25rem; // Adjust based on your layout
-        flex-direction: column;
+        flex-direction: row;
         gap: 1rem;
     }
     &__content {
@@ -59,7 +58,7 @@
         width: 100%;
         padding: 0.5rem;
         margin-top: 0.5rem;
-        border: 1px solid #ccc;
+
         border-radius: 4px;
         box-sizing: border-box;
 
@@ -104,6 +103,8 @@
     &__image {
         object-fit: cover;
         object-position: center top;
+        width: 100px;
+        height: 100px;
     }
     &__image-container {
         align-items: flex-start;
@@ -114,7 +115,8 @@
         justify-content: center;
         margin: 0 auto; // Center the image
         overflow: hidden;
-        width: 200px;
+        width: 3.5rem;
+        height: 3.5rem;
     }
     &__picture-wrapper {
         gap: 1rem;
@@ -137,6 +139,7 @@
         &--cancel {
             background-color: white;
             color: $primary-font;
+            margin-bottom: 1rem;
         }
     }
     &__text-area {
@@ -146,6 +149,8 @@
 
 .readonly {
     cursor: auto;
+    border: none;
+    outline: none;
     &--pic {
         display: none;
     }

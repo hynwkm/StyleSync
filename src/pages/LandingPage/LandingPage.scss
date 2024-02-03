@@ -3,7 +3,28 @@
     display: flex;
     justify-content: space-around;
     padding: 3rem 0;
+    margin-bottom: 10rem;
     flex-wrap: wrap;
-    max-height: 58.5vw;
+    max-height: 31vw;
     overflow: hidden;
+}
+
+.banner {
+    position: relative;
+
+    &__title {
+        top: 50%;
+        position: absolute;
+        left: 10%;
+        font-family: PlayfairDisplaysSC, Arial;
+    }
+}
+.subbanner {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-direction: column;
+    margin: 5rem 20%;
+    align-items: center;
+    text-align: center;
 }

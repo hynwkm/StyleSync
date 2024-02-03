@@ -4,25 +4,30 @@
 
 .header {
     width: 100%;
-    padding: 2rem;
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
-    border-bottom: 2px solid $primary-font;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); // Adds a subtle shadow for depth
-    align-items: center;
+    align-items: flex-end;
+    position: fixed;
+    top: 0;
+    z-index: 99;
 
     &__logo {
-        font-family: Pacifico, Cursive, "Brush Script MT", "Comic Sans MS",
-            "Dancing Script", Arial, sans-serif;
         color: $primary-font;
         cursor: pointer;
+        font-family: "Dancing Script", Arial, sans-serif;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+
+        letter-spacing: 0.03rem;
+        font-size: 1.75rem;
         &:hover {
             color: $secondary-font;
         }
     }
     &__login {
         @include buttonlike;
-        // padding: 2rem;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
     }
     &__actions {
         position: relative;
@@ -30,12 +35,14 @@
     &__logout {
         @include buttonlike;
         background-color: white;
-        color: $highlight-font;
+        color: red;
         position: absolute;
         left: 0;
         top: 100%; // Adjust as necessary
         width: 100%;
         display: none;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
         &--shown {
             display: block;
         }

@@ -56,7 +56,7 @@ const OtherUserProfilePage: React.FC<OtherUserProfilePageProps> = () => {
         <>
             <div className="content profile">
                 <div className="profile__header">
-                    <h2>Welcome to {otherUser.username}'s Profile</h2>
+                    <h2>Welcome to {otherUser.username}'s Wardrobe</h2>
                     <p>Rating: {otherUser.rating ? otherUser.rating : "0"}/5</p>
                     <div className="profile__picture-wrapper">
                         <div className="profile__image-container">

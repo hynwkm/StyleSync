@@ -12,8 +12,7 @@ interface OutfitsProps {
 
 const Outfits: React.FC<OutfitsProps> = ({ userId }) => {
     const [outfits, setOutfits] = useState<Outfit[]>();
-    const [selectedOutfit, setSelectedOutfit] = useState<Outfit>();
-
+    const [selectedOutfit, setSelectedOutfit] = useState<number | null>();
     useEffect(() => {
         const fetchOutfits = async () => {
             try {
@@ -37,8 +36,8 @@ const Outfits: React.FC<OutfitsProps> = ({ userId }) => {
         fetchOutfits();
     }, [userId]);
 
-    const handleOutfitClick = (outfit: Outfit) => {
-        setSelectedOutfit(outfit);
+    const handleOutfitShow = (outfitId: number) => {
+        setSelectedOutfit(outfitId);
     };
 
     if (!outfits || outfits.length === -1) {
@@ -53,55 +52,67 @@ const Outfits: React.FC<OutfitsProps> = ({ userId }) => {
                         <div
                             className="outfits__item"
                             key={index}
-                            onClick={() => handleOutfitClick(outfit)}>
+                            onMouseOver={() => handleOutfitShow(outfit.id)}
+                            onMouseLeave={() => {
+                                setSelectedOutfit(null);
+                            }}>
                             <img
                                 src={outfit.outfit_pic_link}
                                 alt={`User's outfit`}
                                 className="outfits__image"
                             />
+                            {selectedOutfit === outfit.id ? (
+                                <div className="outfits__details">
+                                    <div className="outfits__details-info">
+                                        <div className="outfits__card">
+                                            <p>Khaki Bomber Jacket</p>
+                                            <p>Rating: 4/5</p>
+                                            <p>$99</p>
+                                            <p>
+                                                <a
+                                                    href={`https://www.amazon.com/s?k=men+khaki+bomber+jacket`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer">
+                                                    Go to Purchase Link
+                                                </a>
+                                            </p>
+                                        </div>
+                                        <div className="outfits__card">
+                                            <p>White Round-neck Shirt</p>
+                                            <p>Rating: 4.5/5</p>
+                                            <p>$30</p>
+                                            <p>
+                                                <a
+                                                    href={`https://www.amazon.com/s?k=men+white+roundneck+shirt`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer">
+                                                    Go to Purchase Link
+                                                </a>
+                                            </p>
+                                        </div>
+                                        <div className="outfits__card">
+                                            <p>Black Denim Jeans</p>
+                                            <p>Rating: 4.7/5</p>
+                                            <p>$70</p>
+                                            <p>
+                                                <a
+                                                    href={`https://www.amazon.com/s?k=men+black+denim+jean`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer">
+                                                    Go to Purchase Link
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <></>
+                            )}
                         </div>
                     ))}
                 </div>
             ) : (
                 <p>No outfits found.</p>
-            )}
-            {selectedOutfit && (
-                <div className="outfits__details">
-                    <img
-                        src={selectedOutfit.outfit_pic_link}
-                        alt="Selected outfit"
-                        className="outfits__details-image"
-                    />
-                    <div className="outfits__details-info">
-                        <p>Color: Red</p> {/* Hardcoded info */}
-                        <p>Type: Dress</p> {/* Hardcoded info */}
-                        <p>Rating: 4/5</p> {/* Hardcoded info */}
-                        <p>Price: $99</p> {/* Hardcoded info */}
-                        <p>
-                            Purchase Link:{" "}
-                            <a href="http://example.com">Buy Here</a>
-                        </p>{" "}
-                        {/* Hardcoded info */}
-                        <p>Color: Red</p> {/* Hardcoded info */}
-                        <p>Type: Dress</p> {/* Hardcoded info */}
-                        <p>Rating: 4/5</p> {/* Hardcoded info */}
-                        <p>Price: $99</p> {/* Hardcoded info */}
-                        <p>
-                            Purchase Link:{" "}
-                            <a href="http://example.com">Buy Here</a>
-                        </p>{" "}
-                        {/* Hardcoded info */}
-                        <p>Color: Red</p> {/* Hardcoded info */}
-                        <p>Type: Dress</p> {/* Hardcoded info */}
-                        <p>Rating: 4/5</p> {/* Hardcoded info */}
-                        <p>Price: $99</p> {/* Hardcoded info */}
-                        <p>
-                            Purchase Link:{" "}
-                            <a href="http://example.com">Buy Here</a>
-                        </p>{" "}
-                        {/* Hardcoded info */}
-                    </div>
-                </div>
             )}
         </div>
     );
