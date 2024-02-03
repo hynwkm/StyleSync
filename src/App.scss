@@ -8,6 +8,7 @@
     margin: 0;
     padding: 0;
     vertical-align: baseline;
+    font-family: "Playfair Display SC", serif; /* Adjust the fallback font as needed */
 }
 
 article,
@@ -66,10 +67,14 @@ input {
 }
 
 body {
-    background-color: lightblue;
-    color: coral;
+    background-color: white;
+    font-family: "Playfair Display SC", serif; /* Adjust the fallback font as needed */
 }
 
 .content {
     margin: 2rem 10%;
+}
+
+strong {
+    font-weight: 700;
 }

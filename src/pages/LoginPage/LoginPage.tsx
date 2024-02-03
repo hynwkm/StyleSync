@@ -52,7 +52,7 @@ export default function LoginPage(props: { login: () => void }) {
             localStorage.setItem("token", token);
             props.login();
             setErrorMsg("Sign In Success!");
-            setTimeout(() => navigate("/"), 3000);
+            setTimeout(() => navigate("/"), 2000);
         } catch (error) {
             console.error(error);
             let message = "An unexpected error occurred"; // Default error message

@@ -9,15 +9,8 @@
     flex-direction: column;
     background-color: white;
     gap: 1rem;
-    padding: 2rem 10rem; // Ensures consistent padding around the form
+    padding: 2rem; // Ensures consistent padding around the form
     border-radius: 0.5rem;
-    margin: 2rem;
-    margin-top: 5.8rem;
-    &__add-outfit {
-        @include buttonlike;
-        height: 2.5rem;
-    }
-
     &__header {
         display: flex;
         justify-content: space-between;
@@ -26,9 +19,6 @@
         margin-bottom: 1.25rem; // Adjust based on your layout
         flex-direction: row;
         gap: 1rem;
-        &--right {
-            display: flex;
-        }
     }
     &__content {
         width: 100%;
@@ -48,8 +38,6 @@
         flex-wrap: wrap;
         gap: 1rem;
         width: 100%;
-        border-bottom: 1px solid black;
-        border-top: 1px solid black;
     }
 
     &__columns {
@@ -113,15 +101,12 @@
         }
     }
     &__image {
-        position: absolute;
-        top: 0;
-        left: 0;
-
         object-fit: cover;
         object-position: center top;
+        width: 100px;
+        height: 100px;
     }
     &__image-container {
-        position: relative;
         align-items: flex-start;
         background-color: lightgrey;
         border-radius: 50%; // Circular profile image
@@ -137,7 +122,6 @@
         gap: 1rem;
         display: flex;
         flex-direction: column;
-        width: 13rem;
     }
     &__image-input {
         width: 1px;
@@ -155,9 +139,6 @@
         &--cancel {
             background-color: white;
             color: $primary-font;
-            margin-bottom: 1rem;
-        }
-        &--edit {
             margin-bottom: 1rem;
         }
     }

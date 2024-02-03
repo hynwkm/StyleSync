@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import Card from "../../components/Card/Card";
+import bannerImage from "../../data/banner.jpg";
 import User from "../../models/users";
 import "./LandingPage.scss";
 
@@ -40,23 +41,52 @@ export default function LandingPage({
         };
         getUsers();
     }, [isLoggedIn, setUserList]);
-
     if (userList.length === -1) {
         return <></>;
     }
 
     return (
-        <section className="content LandingPage">
-            <h1>Browse your top recommendations</h1>
-            <div className="userlist">
-                {
-                    <>
-                        {userList.map((user: User) => {
-                            return <Card cardDetails={user} key={user.id} />;
-                        })}
-                    </>
-                }
+        <>
+            <div className="banner">
+                <h1 className="banner__title">FIND YOUR BEST FIT</h1>
+                <img
+                    className="banner__image"
+                    src={bannerImage}
+                    alt="banner img"
+                />
             </div>
-        </section>
+            <div className="subbanner">
+                <h2>Elevate your style with Style Fit.</h2>
+                <div>
+                     Our cutting-edge platform crafts a customized collection of
+                    outfit suggestions just for you, taking into account your
+                    physique and budget. Share your unique look to inspire
+                    others or refresh your wardrobe with trendsetting ideas. Bid
+                    farewell to fashion dilemmas and embrace a wardrobe that
+                    perfectly suits you. Dive into a seamless style
+                    experience—try it now!
+                </div>
+            </div>
+            <section className="content landing">
+                <h1 className="landing__title">
+                    Get Inspired by People Like You
+                </h1>
+                <div className="userlist">
+                    {
+                        <>
+                            {userList.map((user: User) => {
+                                return (
+                                    <Card
+                                        cardDetails={user}
+                                        key={user.id}
+                                        userId={user.id}
+                                    />
+                                );
+                            })}
+                        </>
+                    }
+                </div>
+            </section>
+        </>
     );
 }

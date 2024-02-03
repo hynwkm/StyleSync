@@ -6,6 +6,7 @@ import Header from "./components/Header/Header";
 import User from "./models/users";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import OtherUserProfilePage from "./pages/OneUserPage/OtherUserProfilePage";
 import OutfitPage from "./pages/OutfitPage/OutfitPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
@@ -15,7 +16,6 @@ function App() {
         localStorage.getItem("token") ? true : false
     );
     const [userList, setUserList] = useState<User[]>([]);
-    const [currentUserDetails, setCurrentUserDetails] = useState<User>();
 
     function setUsersList(users: User[]) {
         setUserList(users);
@@ -23,6 +23,9 @@ function App() {
 
     function login() {
         setIsLoggedIn(true);
+    }
+    function logout() {
+        setIsLoggedIn(false);
     }
 
     useEffect(() => {
@@ -33,7 +36,7 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter>
-                <Header isLoggedIn={isLoggedIn} />
+                <Header isLoggedIn={isLoggedIn} logout={logout} />
                 <Routes>
                     <Route
                         path="/"
@@ -55,6 +58,10 @@ function App() {
                         element={<SignupPage login={login} />}
                     />
                     <Route path="/profile" element={<UserProfilePage />} />
+                    <Route
+                        path="/user/:userId"
+                        element={<OtherUserProfilePage />}
+                    />
                     <Route path="/outfits/:outfitId" element={<OutfitPage />} />
                 </Routes>
             </BrowserRouter>
