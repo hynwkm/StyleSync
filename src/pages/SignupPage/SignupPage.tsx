@@ -1,4 +1,5 @@
 import axios from "axios";
+import { motion } from "framer-motion";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SignupPage.scss"; // Make sure to create a corresponding SASS file for styling
@@ -109,61 +110,68 @@ export default function SignupPage(props: { login: () => void }) {
     }
 
     return (
-        <div className="content signup">
-            <form className="signup__form" onSubmit={submitHandler}>
-                <h2>SIGN UP</h2>
-                <label className="signup__label" htmlFor="email">
-                    Email:
-                    <input
-                        className={`signup__input ${
-                            emailError ? "signup__input--error" : ""
-                        }`}
-                        type="text"
-                        value={email}
-                        onChange={changeEmail}
-                    />
-                </label>
-                <label className="signup__label" htmlFor="username">
-                    Username:
-                    <input
-                        className={`signup__input ${
-                            usernameError ? "signup__input--error" : ""
-                        }`}
-                        type="text"
-                        value={username}
-                        onChange={changeUsername}
-                    />
-                </label>
-                <label className="signup__label" htmlFor="password">
-                    Password:
-                    <input
-                        className={`signup__input ${
-                            passwordError ? "signup__input--error" : ""
-                        }`}
-                        type="password"
-                        value={password}
-                        onChange={changePassword}
-                    />
-                </label>
-                <label className="signup__label" htmlFor="confirmPassword">
-                    Confirm Password:
-                    <input
-                        className={`signup__input ${
-                            confirmPasswordError ? "signup__input--error" : ""
-                        }`}
-                        type="password"
-                        value={confirmPassword}
-                        onChange={changeConfirmPassword}
-                    />
-                </label>
-                <button className="signup__submit" type="submit">
-                    SIGN UP
-                </button>
-                {errorMsg ? <p>{errorMsg}</p> : <></>}
-                <div className="signup__login" onClick={toLogin}>
-                    Already have an account? Click here to log in
-                </div>
-            </form>
-        </div>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}>
+            <div className="content signup">
+                <form className="signup__form" onSubmit={submitHandler}>
+                    <h2>SIGN UP</h2>
+                    <label className="signup__label" htmlFor="email">
+                        Email:
+                        <input
+                            className={`signup__input ${
+                                emailError ? "signup__input--error" : ""
+                            }`}
+                            type="text"
+                            value={email}
+                            onChange={changeEmail}
+                        />
+                    </label>
+                    <label className="signup__label" htmlFor="username">
+                        Username:
+                        <input
+                            className={`signup__input ${
+                                usernameError ? "signup__input--error" : ""
+                            }`}
+                            type="text"
+                            value={username}
+                            onChange={changeUsername}
+                        />
+                    </label>
+                    <label className="signup__label" htmlFor="password">
+                        Password:
+                        <input
+                            className={`signup__input ${
+                                passwordError ? "signup__input--error" : ""
+                            }`}
+                            type="password"
+                            value={password}
+                            onChange={changePassword}
+                        />
+                    </label>
+                    <label className="signup__label" htmlFor="confirmPassword">
+                        Confirm Password:
+                        <input
+                            className={`signup__input ${
+                                confirmPasswordError
+                                    ? "signup__input--error"
+                                    : ""
+                            }`}
+                            type="password"
+                            value={confirmPassword}
+                            onChange={changeConfirmPassword}
+                        />
+                    </label>
+                    <button className="signup__submit" type="submit">
+                        SIGN UP
+                    </button>
+                    {errorMsg ? <p>{errorMsg}</p> : <></>}
+                    <div className="signup__login" onClick={toLogin}>
+                        Already have an account? Click here to log in
+                    </div>
+                </form>
+            </div>
+        </motion.div>
     );
 }

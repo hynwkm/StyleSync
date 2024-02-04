@@ -1,7 +1,9 @@
 import axios from "axios";
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Outfits from "../../components/Outfits/Outfits";
+import Outfit from "../../models/outfits";
 import User from "../../models/users";
 import "./UserProfilePage.scss";
 
@@ -26,9 +28,8 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
     });
     const [formData, setFormData] = useState({ ...originalFormData });
     const [readOnly, setReadOnly] = useState<boolean>(true);
-    // const [newOutfit, setNewOutfit] = useState<Outfit | null>(null);
-    // const [loading, setLoading] = useState<boolean>(false);
-    // const [outfitList, setOutfitList] = useState<Outfit[]>([]);
+    const [outfits, setOutfits] = useState<Outfit[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const token = localStorage.getItem("token");
     const fileInputRef = React.useRef<HTMLInputElement>(null);
@@ -74,6 +75,22 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             }
         };
         getProfile();
+    }, [token]);
+
+    useEffect(() => {
+        const fetchOutfits = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                const response = await axios.get<Outfit[]>(
+                    `${API_URL}/api/profile/outfits`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                setOutfits(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchOutfits();
     }, [token]);
 
     const handleChange = (
@@ -172,6 +189,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
         }
     };
     const handleAddOutfit = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLoading(true);
         const file = e.target.files ? e.target.files[0] : null;
 
         if (file) {
@@ -186,6 +204,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                 });
             } catch (error) {
                 console.error("Error reading file:", error);
+                setLoading(false);
                 return;
             }
             try {
@@ -198,13 +217,17 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                         },
                     }
                 );
-                console.log("Upload successful", addOutfitResponse.data);
+                console.log(addOutfitResponse);
+                setOutfits([addOutfitResponse.data, ...outfits]);
+                setLoading(false);
             } catch (error) {
                 console.error("Error uploading image:", error);
             }
         } else {
             console.log("No file selected");
+            setLoading(false);
         }
+        setLoading(false);
     };
 
     if (!profile) {
@@ -212,7 +235,11 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
     }
 
     return (
-        <>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}>
+            {loading ? <div className="loading-msg">Uploading...</div> : <></>}
             <form className="content profile" onSubmit={handleSubmit}>
                 <div className="profile__header">
                     <h2>Hello {profile.username}</h2>
@@ -436,8 +463,8 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                 </label>
             </form>
 
-            <Outfits />
-        </>
+            <Outfits outfits={outfits} />
+        </motion.div>
     );
 };
 

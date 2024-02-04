@@ -1,4 +1,5 @@
 import axios from "axios";
+import { motion } from "framer-motion";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.scss";
@@ -78,39 +79,44 @@ export default function LoginPage(props: { login: () => void }) {
     }
 
     return (
-        <div className="content login">
-            <form className="login__form" onSubmit={submitHandler}>
-                <h2>LOGIN</h2>
-                <label className="login__label" htmlFor="email">
-                    Email:
-                    <input
-                        className={`login__input ${
-                            emailError ? "login__input--error" : ""
-                        }`}
-                        type="text"
-                        value={email}
-                        onChange={(e) => changeEmail(e)}
-                    />
-                </label>
-                <label className="login__label" htmlFor="password">
-                    Password:
-                    <input
-                        className={`login__input ${
-                            passwordError ? "login__input--error" : ""
-                        }`}
-                        type="password"
-                        value={password}
-                        onChange={(e) => changePassword(e)}
-                    />
-                </label>
-                <button className="login__submit" type="submit">
-                    LOGIN
-                </button>
-                {errorMsg ? <p>{errorMsg}</p> : <></>}
-                <div className="login__signup" onClick={toSignup}>
-                    Click here to Create an Account
-                </div>
-            </form>
-        </div>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}>
+            <div className="content login">
+                <form className="login__form" onSubmit={submitHandler}>
+                    <h2>LOGIN</h2>
+                    <label className="login__label" htmlFor="email">
+                        Email:
+                        <input
+                            className={`login__input ${
+                                emailError ? "login__input--error" : ""
+                            }`}
+                            type="text"
+                            value={email}
+                            onChange={(e) => changeEmail(e)}
+                        />
+                    </label>
+                    <label className="login__label" htmlFor="password">
+                        Password:
+                        <input
+                            className={`login__input ${
+                                passwordError ? "login__input--error" : ""
+                            }`}
+                            type="password"
+                            value={password}
+                            onChange={(e) => changePassword(e)}
+                        />
+                    </label>
+                    <button className="login__submit" type="submit">
+                        LOGIN
+                    </button>
+                    {errorMsg ? <p>{errorMsg}</p> : <></>}
+                    <div className="login__signup" onClick={toSignup}>
+                        Click here to Create an Account
+                    </div>
+                </form>
+            </div>
+        </motion.div>
     );
 }
