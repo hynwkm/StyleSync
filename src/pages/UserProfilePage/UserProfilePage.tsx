@@ -26,6 +26,9 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
     });
     const [formData, setFormData] = useState({ ...originalFormData });
     const [readOnly, setReadOnly] = useState<boolean>(true);
+    // const [newOutfit, setNewOutfit] = useState<Outfit | null>(null);
+    // const [loading, setLoading] = useState<boolean>(false);
+    // const [outfitList, setOutfitList] = useState<Outfit[]>([]);
 
     const token = localStorage.getItem("token");
     const fileInputRef = React.useRef<HTMLInputElement>(null);
@@ -109,7 +112,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             }));
         }
     };
-    function editProfile(e: React.MouseEvent<HTMLButtonElement>) {
+    function editProfile(e: React.MouseEvent<SVGElement>) {
         e.preventDefault();
         e.stopPropagation();
         if (readOnly) {
@@ -168,7 +171,42 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             console.error("Error updating profile:", error);
         }
     };
-    function handleAddOutfit() {}
+    const handleAddOutfit = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files ? e.target.files[0] : null;
+
+        if (file) {
+            const reader = new FileReader();
+            let encodedImage;
+
+            try {
+                encodedImage = await new Promise((resolve, reject) => {
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = (error) => reject(error);
+                    reader.readAsDataURL(file);
+                });
+            } catch (error) {
+                console.error("Error reading file:", error);
+                return;
+            }
+            try {
+                const addOutfitResponse = await axios.post(
+                    `${API_URL}/api/profile/outfits`,
+                    { outfit_pic_link: encodedImage },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                console.log("Upload successful", addOutfitResponse.data);
+            } catch (error) {
+                console.error("Error uploading image:", error);
+            }
+        } else {
+            console.log("No file selected");
+        }
+    };
+
     if (!profile) {
         return <div>Loading profile...</div>;
     }
@@ -179,13 +217,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                 <div className="profile__header">
                     <h2>Hello {profile.username}</h2>
                     <p>Rating is: {profile.rating ? profile.rating : "0"}/5</p>
-
                     <div className="profile__header--right">
-                        <div
-                            className="profile__add-outfit"
-                            onClick={handleAddOutfit}>
-                            Add Outfit
-                        </div>
                         <div className="profile__picture-wrapper">
                             <div className="profile__image-container">
                                 {formData.profile_pic ? (
@@ -203,7 +235,13 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                                 className={`profile__image-label ${
                                     readOnly ? "readonly readonly--pic" : ""
                                 }`}>
-                                Choose a Profile Picture
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="24"
+                                    viewBox="0 -960 960 960"
+                                    width="24">
+                                    <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h360v80H200v560h560v-360h80v360q0 33-23.5 56.5T760-120H200Zm480-480v-80h-80v-80h80v-80h80v80h80v80h-80v80h-80ZM240-280h480L570-480 450-320l-90-120-120 160Zm-40-480v560-560Z" />
+                                </svg>
                                 <input
                                     type="file"
                                     name="profile_pic"
@@ -262,9 +300,19 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                                     value={formData.gender}
                                     onChange={handleChange}
                                     disabled={readOnly}>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="">Other</option>
+                                    <option
+                                        className="gender__option"
+                                        value="Male">
+                                        Male
+                                    </option>
+                                    <option
+                                        className="gender__option"
+                                        value="Female">
+                                        Female
+                                    </option>
+                                    <option className="gender__option" value="">
+                                        Other
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -342,27 +390,52 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                         </label>
                     </div>
                     {readOnly ? (
-                        <button
+                        <svg
                             className="profile__button profile__button--edit"
-                            onClick={editProfile}>
-                            Edit Profile
-                        </button>
+                            onClick={editProfile}
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="26"
+                            viewBox="0 -960 960 960"
+                            width="26">
+                            <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
+                        </svg>
                     ) : (
                         <>
                             <button
                                 type="submit"
-                                className="profile__button profile__button--save">
-                                Save Profile
+                                className="profile__button--save">
+                                <svg
+                                    type="submit"
+                                    className="profile__button"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="26"
+                                    viewBox="0 -960 960 960"
+                                    width="26">
+                                    <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
+                                </svg>
                             </button>
-                            <button
+                            <svg
                                 className="profile__button profile__button--cancel"
-                                onClick={editProfile}>
-                                Cancel
-                            </button>
+                                onClick={editProfile}
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="26"
+                                viewBox="0 -960 960 960"
+                                width="26">
+                                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                            </svg>
                         </>
                     )}
                 </div>
+                <label className="profile__add-label">
+                    Upload Outfit
+                    <input
+                        type="file"
+                        className="profile__add-outfit"
+                        onChange={(e) => handleAddOutfit(e)}
+                        accept="image/*"></input>
+                </label>
             </form>
+
             <Outfits />
         </>
     );

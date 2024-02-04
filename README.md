@@ -1,8 +1,8 @@
-# Style Sync : Like My Fit?
+# Style Fit : Like My Fit?
 
 ## Overview
 
-Style Sync is a personalized fashion recommendation and social shopp# Getting Started with Create React App
+Style Fit is a personalized fashion recommendation and social shopp# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -13,11 +13,11 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ### Problem
 
-Finding the perfect outfit that suits your personal needs involves considerations of body type, style, and budget. Style Sync simplifies this process by connecting users with similar tastes, making it easier to shop for outfits they will love.
+Finding the perfect outfit that suits your personal needs involves considerations of body type, style, and budget. Style Fit simplifies this process by connecting users with similar tastes, making it easier to shop for outfits they will love.
 
 Market Research shows that similar fashion apps primarily focus on connecting customers with designers. While social media apps (Twitter, Facebook, etc) can be used to connect users based on fashion interests, they lack functionality to allow users to discover new outfits easily.
 
-Style Sync aims to connect provide users with a more casual experience, connecting them with other people with similar body styles and fashion tastes, growing a healthy community.
+Style Fit aims to connect provide users with a more casual experience, connecting them with other people with similar body styles and fashion tastes, growing a healthy community.
 
 ### User Profile
 
