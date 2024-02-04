@@ -57,7 +57,7 @@ export default function LandingPage({
             </div>
             <div className="subbanner">
                 <h2>Elevate your style with Style Fit.</h2>
-                <div>
+                <div className="subbanner__description">
                      Our cutting-edge platform crafts a customized collection of
                     outfit suggestions just for you, taking into account your
                     physique and budget. Share your unique look to inspire

@@ -9,15 +9,38 @@
     flex-direction: column;
     background-color: white;
     gap: 1rem;
-    padding: 2rem 10rem; // Ensures consistent padding around the form
+    padding: 2rem 10%; // Ensures consistent padding around the form
     border-radius: 0.5rem;
     margin: 2rem;
     margin-top: 5.8rem;
-    &__add-outfit {
+    margin-bottom: 0;
+    &__add-label {
         @include buttonlike;
         height: 2.5rem;
+
+        cursor: pointer;
+    }
+    &__add-outfit {
+        display: none;
     }
 
+    &__button {
+        cursor: pointer;
+        &--save {
+            background-color: white;
+        }
+    }
+    &__image-label {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        padding: 0.3rem;
+        background-color: white;
+        border-radius: 50%;
+        border: solid 1px $secondary-bg;
+        display: flex;
+        cursor: pointer;
+    }
     &__header {
         display: flex;
         justify-content: space-between;
@@ -50,6 +73,8 @@
         width: 100%;
         border-bottom: 1px solid black;
         border-top: 1px solid black;
+        justify-content: flex-end;
+        padding-bottom: 1rem;
     }
 
     &__columns {
@@ -126,18 +151,18 @@
         background-color: lightgrey;
         border-radius: 50%; // Circular profile image
         display: flex;
-        height: 200px;
         justify-content: center;
         margin: 0 auto; // Center the image
         overflow: hidden;
-        width: 3.5rem;
-        height: 3.5rem;
+        width: 5rem;
+        height: 5rem;
     }
     &__picture-wrapper {
         gap: 1rem;
         display: flex;
-        flex-direction: column;
-        width: 13rem;
+        flex-direction: row;
+        align-items: center;
+        position: relative;
     }
     &__image-input {
         width: 1px;
@@ -145,22 +170,7 @@
         color: white;
         cursor: pointer;
     }
-    &__image-label {
-        @include buttonlike;
-    }
-    &__button {
-        @include buttonlike;
-        width: 100%;
 
-        &--cancel {
-            background-color: white;
-            color: $primary-font;
-            margin-bottom: 1rem;
-        }
-        &--edit {
-            margin-bottom: 1rem;
-        }
-    }
     &__text-area {
         width: 100%;
     }

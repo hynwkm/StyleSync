@@ -38,6 +38,8 @@
         flex-wrap: wrap;
         gap: 1rem;
         width: 100%;
+        justify-content: flex-end;
+        padding-bottom: 1rem;
     }
 
     &__columns {
@@ -115,33 +117,20 @@
         justify-content: center;
         margin: 0 auto; // Center the image
         overflow: hidden;
-        width: 3.5rem;
-        height: 3.5rem;
+        width: 5rem;
+        height: 5rem;
     }
     &__picture-wrapper {
         gap: 1rem;
         display: flex;
         flex-direction: column;
-        width: 13rem;
+        align-items: center;
     }
     &__image-input {
         width: 1px;
         height: 1px;
         color: white;
         cursor: pointer;
-    }
-    &__image-label {
-        @include buttonlike;
-    }
-    &__button {
-        @include buttonlike;
-        width: 100%;
-
-        &--cancel {
-            background-color: white;
-            color: $primary-font;
-            margin-bottom: 1rem;
-        }
     }
     &__text-area {
         width: 100%;

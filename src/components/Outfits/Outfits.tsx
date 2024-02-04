@@ -70,6 +70,7 @@ const Outfits: React.FC<OutfitsProps> = ({ userId }) => {
                                             <p>$99</p>
                                             <p>
                                                 <a
+                                                    className="outfits__purchase-link"
                                                     href={`https://www.amazon.com/s?k=men+khaki+bomber+jacket`}
                                                     target="_blank"
                                                     rel="noopener noreferrer">
@@ -83,6 +84,7 @@ const Outfits: React.FC<OutfitsProps> = ({ userId }) => {
                                             <p>$30</p>
                                             <p>
                                                 <a
+                                                    className="outfits__purchase-link"
                                                     href={`https://www.amazon.com/s?k=men+white+roundneck+shirt`}
                                                     target="_blank"
                                                     rel="noopener noreferrer">
@@ -96,6 +98,7 @@ const Outfits: React.FC<OutfitsProps> = ({ userId }) => {
                                             <p>$70</p>
                                             <p>
                                                 <a
+                                                    className="outfits__purchase-link"
                                                     href={`https://www.amazon.com/s?k=men+black+denim+jean`}
                                                     target="_blank"
                                                     rel="noopener noreferrer">
