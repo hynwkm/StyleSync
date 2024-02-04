@@ -1,7 +1,9 @@
 import axios from "axios";
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Outfits from "../../components/Outfits/Outfits";
+import Outfit from "../../models/outfits";
 import User from "../../models/users";
 import "./OtherUserProfilePage.scss";
 
@@ -12,6 +14,7 @@ interface OtherUserProfilePageProps {}
 const OtherUserProfilePage: React.FC<OtherUserProfilePageProps> = () => {
     const { userId } = useParams();
     const [otherUser, setOtherUser] = useState<User | null>(null);
+    const [outfits, setOutfits] = useState<Outfit[]>([]);
 
     useEffect(() => {
         const getOtherUserProfile = async () => {
@@ -48,12 +51,33 @@ const OtherUserProfilePage: React.FC<OtherUserProfilePageProps> = () => {
         getOtherUserProfile();
     }, [userId]);
 
+    useEffect(() => {
+        const fetchOutfits = async () => {
+            try {
+                if (userId) {
+                    const response = await axios.get<Outfit[]>(
+                        `${API_URL}/api/user/${userId}/outfits`
+                    );
+                    setOutfits(response.data);
+                } else {
+                    console.log("no user id");
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchOutfits();
+    }, [userId]);
+
     if (!otherUser) {
         return <div>Loading user info...</div>;
     }
 
     return (
-        <>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}>
             <div className="content profile">
                 <div className="profile__header">
                     <h2>Welcome to {otherUser.username}'s Wardrobe</h2>
@@ -102,8 +126,8 @@ const OtherUserProfilePage: React.FC<OtherUserProfilePageProps> = () => {
                     </div>
                 </div>
             </div>
-            <Outfits userId={userId} />
-        </>
+            <Outfits outfits={outfits} />
+        </motion.div>
     );
 };
 

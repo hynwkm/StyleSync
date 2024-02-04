@@ -78,3 +78,17 @@ body {
 strong {
     font-weight: 700;
 }
+
+.loading-msg {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 6rem 10rem;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    font-size: 2rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    z-index: 1000;
+}

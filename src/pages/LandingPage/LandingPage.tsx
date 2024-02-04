@@ -1,4 +1,5 @@
 import axios from "axios";
+import { motion } from "framer-motion";
 import { useEffect } from "react";
 import Card from "../../components/Card/Card";
 import bannerImage from "../../data/banner.jpg";
@@ -46,7 +47,10 @@ export default function LandingPage({
     }
 
     return (
-        <>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}>
             <div className="banner">
                 <h1 className="banner__title">FIND YOUR BEST FIT</h1>
                 <img
@@ -58,7 +62,7 @@ export default function LandingPage({
             <div className="subbanner">
                 <h2>Elevate your style with Style Fit.</h2>
                 <div className="subbanner__description">
-                     Our cutting-edge platform crafts a customized collection of
+                    Our cutting-edge platform crafts a customized collection of
                     outfit suggestions just for you, taking into account your
                     physique and budget. Share your unique look to inspire
                     others or refresh your wardrobe with trendsetting ideas. Bid
@@ -87,6 +91,6 @@ export default function LandingPage({
                     }
                 </div>
             </section>
-        </>
+        </motion.div>
     );
 }

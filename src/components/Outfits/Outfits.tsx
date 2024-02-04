@@ -1,49 +1,55 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+import Clothing from "../../models/clothing_items";
 import Outfit from "../../models/outfits";
 import "./Outfits.scss";
 
 const API_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
 
 interface OutfitsProps {
-    userId?: string;
+    outfits: Outfit[];
 }
 
-const Outfits: React.FC<OutfitsProps> = ({ userId }) => {
-    const [outfits, setOutfits] = useState<Outfit[]>();
+const Outfits: React.FC<OutfitsProps> = ({ outfits }) => {
     const [selectedOutfit, setSelectedOutfit] = useState<number | null>();
+    const [clothingSet, setClothingSet] = useState<Clothing[]>([]);
+
     useEffect(() => {
-        const fetchOutfits = async () => {
+        const getClothings = async () => {
             try {
-                if (userId) {
-                    const response = await axios.get<Outfit[]>(
-                        `${API_URL}/api/user/${userId}/outfits`
+                if (outfits) {
+                    const clothingPromises = outfits.map((outfit) =>
+                        axios.get<Clothing>(
+                            `${API_URL}/api/clothing/${outfit.id}`
+                        )
                     );
-                    setOutfits(response.data);
+                    const clothingResponses = await Promise.all(
+                        clothingPromises
+                    );
+
+                    const allClothings = clothingResponses.map(
+                        (response) => response.data
+                    );
+                    setClothingSet(allClothings);
                 } else {
-                    const token = localStorage.getItem("token");
-                    const response = await axios.get<Outfit[]>(
-                        `${API_URL}/api/profile/outfits`,
-                        { headers: { Authorization: `Bearer ${token}` } }
-                    );
-                    setOutfits(response.data);
+                    return;
                 }
             } catch (error) {
                 console.log(error);
             }
         };
-        fetchOutfits();
-    }, [userId]);
+        getClothings();
+    }, [outfits]);
 
     const handleOutfitShow = (outfitId: number) => {
         setSelectedOutfit(outfitId);
+        console.log(outfitId);
     };
-
+    console.log(clothingSet);
     if (!outfits || outfits.length === -1) {
         return <>loading!</>;
     }
-
     return (
         <div className="outfits">
             {outfits.length > 0 ? (
@@ -64,48 +70,44 @@ const Outfits: React.FC<OutfitsProps> = ({ userId }) => {
                             {selectedOutfit === outfit.id ? (
                                 <div className="outfits__details">
                                     <div className="outfits__details-info">
-                                        <div className="outfits__card">
-                                            <p>Khaki Bomber Jacket</p>
-                                            <p>Rating: 4/5</p>
-                                            <p>$99</p>
-                                            <p>
-                                                <a
-                                                    className="outfits__purchase-link"
-                                                    href={`https://www.amazon.com/s?k=men+khaki+bomber+jacket`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer">
-                                                    Go to Purchase Link
-                                                </a>
-                                            </p>
-                                        </div>
-                                        <div className="outfits__card">
-                                            <p>White Round-neck Shirt</p>
-                                            <p>Rating: 4.5/5</p>
-                                            <p>$30</p>
-                                            <p>
-                                                <a
-                                                    className="outfits__purchase-link"
-                                                    href={`https://www.amazon.com/s?k=men+white+roundneck+shirt`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer">
-                                                    Go to Purchase Link
-                                                </a>
-                                            </p>
-                                        </div>
-                                        <div className="outfits__card">
-                                            <p>Black Denim Jeans</p>
-                                            <p>Rating: 4.7/5</p>
-                                            <p>$70</p>
-                                            <p>
-                                                <a
-                                                    className="outfits__purchase-link"
-                                                    href={`https://www.amazon.com/s?k=men+black+denim+jean`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer">
-                                                    Go to Purchase Link
-                                                </a>
-                                            </p>
-                                        </div>
+                                        {clothingSet
+                                            .flat()
+                                            .filter(
+                                                (clothing) =>
+                                                    clothing.outfit_id ===
+                                                    outfit.id
+                                            )
+                                            .map((clothing, index) => (
+                                                <div
+                                                    key={index}
+                                                    className="outfits__card">
+                                                    <p>
+                                                        {clothing.color}{" "}
+                                                        {clothing.style}{" "}
+                                                        {clothing.type}
+                                                    </p>
+                                                    <p>
+                                                        Rating:{" "}
+                                                        {clothing.rating}/5
+                                                    </p>
+                                                    <p>${clothing.price}</p>
+                                                    <p>
+                                                        <a
+                                                            className="outfits__purchase-link"
+                                                            href={`https://www.amazon.com/s?k=${encodeURIComponent(
+                                                                clothing.color
+                                                            )}+${encodeURIComponent(
+                                                                clothing.style
+                                                            )}+${encodeURIComponent(
+                                                                clothing.type
+                                                            )}`}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer">
+                                                            Go to Purchase Link
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            ))}
                                     </div>
                                 </div>
                             ) : (
