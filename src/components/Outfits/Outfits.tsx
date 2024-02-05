@@ -20,6 +20,9 @@ const Outfits: React.FC<OutfitsProps> = ({
 }) => {
     const [selectedOutfit, setSelectedOutfit] = useState<number | null>();
     const [clothingSet, setClothingSet] = useState<Clothing[]>([]);
+    const [favorites, setFavorites] = useState<{ outfit_id: number }[]>([]);
+
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
         const getClothings = async () => {
@@ -48,8 +51,66 @@ const Outfits: React.FC<OutfitsProps> = ({
         getClothings();
     }, [outfits]);
 
+    useEffect(() => {
+        const getFavorites = async () => {
+            try {
+                const response = await axios.get(
+                    `${API_URL}/api/profile/favorite`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                setFavorites(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getFavorites();
+    }, [token]);
+
     const handleOutfitShow = (outfitId: number) => {
         setSelectedOutfit(outfitId);
+    };
+
+    const handleFav = async (outfitId: number) => {
+        console.log("called");
+        try {
+            if (favorites.some((fav) => fav.outfit_id === outfitId)) {
+                const response = await axios.delete(
+                    `${API_URL}/api/profile/favorite/${outfitId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                if (response.data) {
+                    setFavorites(
+                        favorites.filter(
+                            (favorite) => favorite.outfit_id !== outfitId
+                        )
+                    );
+                }
+            } else {
+                console.log("called post req");
+
+                const response = await axios.post(
+                    `${API_URL}/api/profile/favorite/${outfitId}`,
+                    {},
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                console.log(response.data);
+
+                if (response.data) {
+                    setFavorites([...favorites, { outfit_id: outfitId }]);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     function capitalizeWords(str: string) {
@@ -61,6 +122,7 @@ const Outfits: React.FC<OutfitsProps> = ({
             )
             .join(" ");
     }
+
     if (!outfits || outfits.length === -1) {
         return <>loading!</>;
     }
@@ -90,13 +152,44 @@ const Outfits: React.FC<OutfitsProps> = ({
                                                     handleDelete(outfit.id);
                                                 }
                                             }}
-                                            className="outfits__delete"
+                                            className="outfits__icon"
                                             xmlns="http://www.w3.org/2000/svg"
                                             height="40"
                                             viewBox="0 -960 960 960"
                                             width="40"
                                             fill="white">
                                             <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                                        </svg>
+                                    ) : token && outfit.id ? (
+                                        <svg
+                                            onClick={() => {
+                                                if (handleFav) {
+                                                    handleFav(outfit.id);
+                                                }
+                                            }}
+                                            className="outfits__icon"
+                                            version="1.1"
+                                            id="Layer_1"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="40"
+                                            height="40"
+                                            viewBox="0 0 64 64">
+                                            <path
+                                                fill={
+                                                    favorites.some(
+                                                        (fav) =>
+                                                            fav.outfit_id ===
+                                                            outfit.id
+                                                    )
+                                                        ? "red"
+                                                        : "white"
+                                                }
+                                                stroke="#FFF"
+                                                strokeWidth="2"
+                                                strokeMiterlimit="10"
+                                                d="M1,21c0,20,31,38,31,38s31-18,31-38
+	c0-8.285-6-16-15-16c-8.285,0-16,5.715-16,14c0-8.285-7.715-14-16-14C7,5,1,12.715,1,21z"
+                                            />
                                         </svg>
                                     ) : (
                                         <></>

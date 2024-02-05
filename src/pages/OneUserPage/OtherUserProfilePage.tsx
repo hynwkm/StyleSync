@@ -17,6 +17,9 @@ const OtherUserProfilePage: React.FC<OtherUserProfilePageProps> = () => {
     const [outfits, setOutfits] = useState<Outfit[]>([]);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    useEffect(() => {
         const getOtherUserProfile = async () => {
             try {
                 const response = await axios.get<User>(

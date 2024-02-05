@@ -21,11 +21,16 @@
         overflow-x: auto;
         flex-wrap: wrap;
     }
-    &__delete {
+
+    &__icon {
         position: absolute;
         top: 3%;
         right: 5%;
         cursor: pointer;
+        transition: transform 0.3s ease; /* Smooth transition for the transform property */
+        &:hover {
+            transform: scale(1.1); /* Scale up the icon slightly */
+        }
     }
     &__item {
         position: relative;

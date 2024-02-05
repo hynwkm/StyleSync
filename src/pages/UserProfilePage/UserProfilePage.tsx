@@ -34,7 +34,9 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
     const fileInputRef = React.useRef<HTMLInputElement>(null);
 
     const navigate = useNavigate();
-
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     useEffect(() => {
         const getProfile = async () => {
             if (!token) {

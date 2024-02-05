@@ -21,6 +21,9 @@ export default function LandingPage({
     setUserList,
 }: LandingPageProps) {
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    useEffect(() => {
         const getUsers = async () => {
             try {
                 if (!isLoggedIn) {
