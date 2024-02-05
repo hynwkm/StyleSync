@@ -18,8 +18,8 @@ const MainPage: React.FC<MainPageProps> = ({
     userList,
     setUserList,
 }) => {
-    const featuredUsers = userList.filter((user) => user.rating > 4);
-    const budgetFinds = userList.filter((user) => user.budget < 100);
+    // const featuredUsers = userList.filter((user) => user.rating > 4);
+    // const budgetFinds = userList.filter((user) => user.budget < 100);
 
     const token = localStorage.getItem("token");
 
