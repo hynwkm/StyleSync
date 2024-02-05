@@ -2,6 +2,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import fixUrl from "../../utils/fixUrl";
 import "./SignupPage.scss";
 
 const API_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
@@ -72,7 +73,7 @@ export default function SignupPage(props: { login: () => void }) {
         }
 
         try {
-            const response = await axios.post(`${API_URL}api/signup`, {
+            const response = await axios.post(fixUrl(API_URL, "api/signup"), {
                 email,
                 username,
                 password,
