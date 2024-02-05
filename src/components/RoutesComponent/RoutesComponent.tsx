@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import User from "../../models/users";
 import LandingPage from "../../pages/LandingPage/LandingPage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
+import MainPage from "../../pages/MainPage/MainPage";
 import OtherUserProfilePage from "../../pages/OneUserPage/OtherUserProfilePage";
 import SignupPage from "../../pages/SignupPage/SignupPage";
 import UserProfilePage from "../../pages/UserProfilePage/UserProfilePage";
@@ -42,7 +43,16 @@ const RoutesComponent: React.FC<RoutesComponentProps> = ({
                     path="/user/:userId"
                     element={<OtherUserProfilePage />}
                 />
-                {/* Include other routes as needed */}
+                <Route
+                    path="discover"
+                    element={
+                        <MainPage
+                            isLoggedIn={isLoggedIn}
+                            userList={userList}
+                            setUserList={setUsersList}
+                        />
+                    }
+                />
             </Routes>
         </AnimatePresence>
     );

@@ -15,22 +15,22 @@
         align-items: center;
         background-color: white;
         gap: 1rem;
-        padding: 2rem; // Adds padding around the form for better spacing
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Adds a subtle shadow for depth
-        border-radius: 8px; // Rounds the corners of the form container
+        padding: 2rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
     }
 
     &__input {
-        width: 100%; // Ensures inputs take up the full width of the form
-        padding: 0.5rem; // Adds padding inside the inputs for better text visibility
-        margin-top: 0.5rem; // Adds margin on top for spacing between label and input
-        border: 1px solid #ccc; // Defines a border to make the input visually distinct
-        border-radius: 4px; // Rounds the corners of the input fields
-        box-sizing: border-box; // Ensures padding does not affect the overall width
+        width: 100%;
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
 
         &:focus {
-            border-color: #007bff; // Changes border color on focus for visual feedback
-            outline: none; // Removes the default focus outline
+            border-color: #007bff;
+            outline: none;
         }
         &--error {
             border: 1px solid red;
@@ -38,22 +38,19 @@
     }
 
     &__label {
-        width: 100%; // Ensures labels take up the full width for better alignment
-        text-align: left; // Aligns the text to the left for consistency
+        width: 100%;
+        text-align: left;
     }
 
     &__submit {
         @include buttonlike;
-        padding: 0.75rem 1.5rem; // Increases padding for a larger clickable area
-        width: auto; // Allows the button to size according to its content
-        cursor: pointer; // Changes the cursor to pointer to indicate it's clickable
-        transition: background-color 0.3s; // Adds a transition for the background color
+        padding: 0.75rem 1.5rem;
+        width: auto;
+        cursor: pointer;
+        transition: background-color 0.3s;
 
         &:hover {
-            background-color: darken(
-                $color: #007bff,
-                $amount: 5%
-            ); // Darkens the button on hover for feedback
+            background-color: darken($color: #007bff, $amount: 5%);
         }
     }
     &__signup {

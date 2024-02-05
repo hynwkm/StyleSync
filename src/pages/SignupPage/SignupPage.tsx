@@ -2,7 +2,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./SignupPage.scss"; // Make sure to create a corresponding SASS file for styling
+import "./SignupPage.scss";
 
 const API_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
 
@@ -30,7 +30,7 @@ export default function SignupPage(props: { login: () => void }) {
 
     function changePassword(e: React.ChangeEvent<HTMLInputElement>): void {
         setPasswordError(false);
-        setConfirmPasswordError(false); // Reset confirm password error when password changes
+        setConfirmPasswordError(false);
         setPassword(e.target.value);
     }
 
@@ -78,14 +78,13 @@ export default function SignupPage(props: { login: () => void }) {
                 password,
             });
             const token = response.data.token;
-            console.log(token);
             localStorage.setItem("token", token);
             props.login();
             setErrorMsg("Sign up Success!");
             setTimeout(() => navigate("/"), 2000);
         } catch (error) {
             console.log(error);
-            let message = "An unexpected error occurred"; // Default error message
+            let message = "An unexpected error occurred";
             if (axios.isAxiosError(error)) {
                 if (error.response) {
                     message =

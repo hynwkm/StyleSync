@@ -9,7 +9,6 @@ import "./UserProfilePage.scss";
 
 const API_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
 
-// If there are no props needed, you can omit this part or extend it in the future
 interface UserProfilePageProps {}
 
 const UserProfilePage: React.FC<UserProfilePageProps> = () => {
@@ -38,6 +37,9 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
 
     useEffect(() => {
         const getProfile = async () => {
+            if (!token) {
+                return;
+            }
             try {
                 const response = await axios.get<User>(
                     `${API_URL}/api/profile`,
@@ -51,7 +53,6 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                         new Date(response.data.dob).toLocaleDateString(
                             "en-CA",
                             {
-                                // Using Canadian locale as an example to get YYYY-MM-DD format
                                 year: "numeric",
                                 month: "2-digit",
                                 day: "2-digit",
@@ -79,6 +80,9 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
 
     useEffect(() => {
         const fetchOutfits = async () => {
+            if (!token) {
+                return;
+            }
             try {
                 const token = localStorage.getItem("token");
                 const response = await axios.get<Outfit[]>(
@@ -98,15 +102,14 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement
         >
     ) => {
-        const target = e.target as HTMLInputElement; // Safely assume all inputs have common properties
+        const target = e.target as HTMLInputElement;
         let value: string | number | boolean = target.value;
 
-        // Handle different input types explicitly
         if (target.type === "checkbox") {
             value = target.checked;
         } else if (target.type === "number") {
-            value = parseFloat(target.value) || 0; // Ensure value is always numeric
-        } // No need to handle 'string' explicitly as it's the default type of value
+            value = parseFloat(target.value) || 0;
+        }
 
         const name = target.name;
 
@@ -120,7 +123,6 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
         const file = e.target.files ? e.target.files[0] : null;
 
         if (file) {
-            // Create a temporary URL for the selected file
             const fileURL = URL.createObjectURL(file);
 
             setFormData((prevFormData) => ({
@@ -143,7 +145,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        let updatedFormData = formData; // Start with existing form data
+        let updatedFormData = formData;
         if (fileInputRef.current?.files?.[0]) {
             const file = fileInputRef.current.files[0];
             const reader = new FileReader();
@@ -163,7 +165,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                 }
             } catch (error) {
                 console.error("Error processing file:", error);
-                return; // Exit the function if file processing fails
+                return;
             }
         }
 
@@ -178,7 +180,6 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                 }
             );
 
-            // Update state with the response
             setProfile(profileUpdateResponse.data);
             setFormData(profileUpdateResponse.data);
             setOriginalFormData(profileUpdateResponse.data);
@@ -217,7 +218,6 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                         },
                     }
                 );
-                console.log(addOutfitResponse);
                 setOutfits([addOutfitResponse.data, ...outfits]);
                 setLoading(false);
             } catch (error) {
@@ -228,6 +228,27 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             setLoading(false);
         }
         setLoading(false);
+    };
+
+    const handleDelete = async (outfitId: number) => {
+        try {
+            const token = localStorage.getItem("token");
+
+            const response = await axios.delete(
+                `${API_URL}/api/profile/outfits`,
+                {
+                    data: { id: outfitId }, // Include the request body in the `data` property
+                    headers: { Authorization: `Bearer ${token}` }, // Include headers as usual
+                }
+            );
+            setOutfits(
+                outfits.filter((outfit) => {
+                    return outfit.id !== response.data.deletedOutfit.id;
+                })
+            );
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     if (!profile) {
@@ -242,8 +263,10 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             {loading ? <div className="loading-msg">Uploading...</div> : <></>}
             <form className="content profile" onSubmit={handleSubmit}>
                 <div className="profile__header">
-                    <h2>Hello {profile.username}</h2>
-                    <p>Rating is: {profile.rating ? profile.rating : "0"}/5</p>
+                    <div className="profile__user-rating">
+                        <h2>Hello {profile.username}</h2>
+                        <p>Rating: {profile.rating ? profile.rating : "0"}/5</p>
+                    </div>
                     <div className="profile__header--right">
                         <div className="profile__picture-wrapper">
                             <div className="profile__image-container">
@@ -318,7 +341,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                             </div>
                             <div className="profile__detail">
                                 <label htmlFor="gender">
-                                    <strong>Gender: </strong>
+                                    <strong>Shopping For: </strong>
                                 </label>
                                 <select
                                     id="gender"
@@ -330,15 +353,15 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                                     <option
                                         className="gender__option"
                                         value="Male">
-                                        Male
+                                        Men's Clothes
                                     </option>
                                     <option
                                         className="gender__option"
                                         value="Female">
-                                        Female
+                                        Women's Clothes
                                     </option>
                                     <option className="gender__option" value="">
-                                        Other
+                                        All Clothes
                                     </option>
                                 </select>
                             </div>
@@ -388,7 +411,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="profile__detail">
+                    <div className="profile__detail profile__detail--bio">
                         <label htmlFor="bio">
                             <strong>Bio: </strong>
                         </label>
@@ -402,59 +425,61 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                             onChange={handleChange}
                             readOnly={readOnly}></textarea>
                     </div>
-                    <div className="profile__detail">
-                        <input
-                            type="checkbox"
-                            id="profile_visibility"
-                            name="profile_visibility"
-                            className={`${readOnly ? "readonly" : ""}`}
-                            checked={formData.profile_visibility}
-                            onChange={handleChange}
-                            disabled={readOnly}
-                        />
+                    <div className="profile__detail profile__detail--visibility">
                         <label htmlFor="profile_visibility">
-                            <strong>Profile Visibility</strong>
+                            <strong>Profile Visibility </strong>
+                            <input
+                                type="checkbox"
+                                id="profile_visibility"
+                                name="profile_visibility"
+                                className={`checkbox ${
+                                    readOnly ? "readonly" : ""
+                                }`}
+                                checked={formData.profile_visibility}
+                                onChange={handleChange}
+                                disabled={readOnly}
+                            />
                         </label>
-                    </div>
-                    {readOnly ? (
-                        <svg
-                            className="profile__button profile__button--edit"
-                            onClick={editProfile}
-                            xmlns="http://www.w3.org/2000/svg"
-                            height="26"
-                            viewBox="0 -960 960 960"
-                            width="26">
-                            <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                        </svg>
-                    ) : (
-                        <>
-                            <button
-                                type="submit"
-                                className="profile__button--save">
-                                <svg
-                                    type="submit"
-                                    className="profile__button"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    height="26"
-                                    viewBox="0 -960 960 960"
-                                    width="26">
-                                    <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-                                </svg>
-                            </button>
+                        {readOnly ? (
                             <svg
-                                className="profile__button profile__button--cancel"
+                                className="profile__button profile__button--edit"
                                 onClick={editProfile}
                                 xmlns="http://www.w3.org/2000/svg"
                                 height="26"
                                 viewBox="0 -960 960 960"
                                 width="26">
-                                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                                <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                             </svg>
-                        </>
-                    )}
+                        ) : (
+                            <div>
+                                <button
+                                    type="submit"
+                                    className="profile__button--save">
+                                    <svg
+                                        type="submit"
+                                        className="profile__button"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        height="26"
+                                        viewBox="0 -960 960 960"
+                                        width="26">
+                                        <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
+                                    </svg>
+                                </button>
+                                <svg
+                                    className="profile__button profile__button--cancel"
+                                    onClick={editProfile}
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="26"
+                                    viewBox="0 -960 960 960"
+                                    width="26">
+                                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                                </svg>
+                            </div>
+                        )}
+                    </div>
                 </div>
                 <label className="profile__add-label">
-                    Upload Outfit
+                    Add Outfit
                     <input
                         type="file"
                         className="profile__add-outfit"
@@ -463,7 +488,11 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                 </label>
             </form>
 
-            <Outfits outfits={outfits} />
+            <Outfits
+                outfits={outfits}
+                currentUser={true}
+                handleDelete={handleDelete}
+            />
         </motion.div>
     );
 };
