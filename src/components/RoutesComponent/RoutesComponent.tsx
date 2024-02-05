@@ -1,6 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { Route, Routes, useLocation } from "react-router-dom";
 import User from "../../models/users";
+import FavPage from "../../pages/FavPage/FavPage";
 import LandingPage from "../../pages/LandingPage/LandingPage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import MainPage from "../../pages/MainPage/MainPage";
@@ -44,7 +45,7 @@ const RoutesComponent: React.FC<RoutesComponentProps> = ({
                     element={<OtherUserProfilePage />}
                 />
                 <Route
-                    path="discover"
+                    path="/discover"
                     element={
                         <MainPage
                             isLoggedIn={isLoggedIn}
@@ -52,6 +53,10 @@ const RoutesComponent: React.FC<RoutesComponentProps> = ({
                             setUserList={setUsersList}
                         />
                     }
+                />
+                <Route
+                    path="/favorites"
+                    element={<FavPage isLoggedIn={isLoggedIn} />}
                 />
             </Routes>
         </AnimatePresence>

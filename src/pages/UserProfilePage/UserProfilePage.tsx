@@ -494,6 +494,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                 outfits={outfits}
                 currentUser={true}
                 handleDelete={handleDelete}
+                favPage={false}
             />
         </motion.div>
     );

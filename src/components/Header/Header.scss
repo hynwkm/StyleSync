@@ -30,6 +30,9 @@
         @include buttonlike;
         padding-top: 0.3rem;
         padding-bottom: 0.3rem;
+        &:hover {
+            background-color: darken($secondary-bg, 20%);
+        }
     }
     &__actions {
         position: relative;
@@ -47,6 +50,23 @@
         padding-bottom: 0.3rem;
         &--shown {
             display: block;
+        }
+        &:hover {
+            background-color: darken(white, 20%);
+        }
+    }
+    &__favorites {
+        @include buttonlike;
+        background-color: yellow;
+        color: white;
+        display: none;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        &--shown {
+            display: block;
+        }
+        &:hover {
+            background-color: darken(yellow, 20%);
         }
     }
 }

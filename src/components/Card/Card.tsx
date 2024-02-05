@@ -9,11 +9,17 @@ export default function Card(prop: { cardDetails: User; userId: number }) {
     }
     return (
         <div className="card" onClick={toUserPage}>
-            <img
-                className="card__image"
-                src={prop.cardDetails.profile_pic}
-                alt="profile_pic"
-            />
+            {prop.cardDetails.profile_pic ? (
+                <img
+                    className="card__image"
+                    src={prop.cardDetails.profile_pic}
+                    alt="profile_pic"
+                />
+            ) : (
+                <div className="card__placeholder">
+                    {prop.cardDetails.username}
+                </div>
+            )}
         </div>
     );
 }

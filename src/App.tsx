@@ -36,7 +36,6 @@ function App() {
                     userList={userList}
                     setUsersList={setUsersList}
                 />
-                {/* <Footer /> */}
             </BrowserRouter>
         </div>
     );

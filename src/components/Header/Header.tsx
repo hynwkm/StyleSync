@@ -26,6 +26,11 @@ export default function Header(props: {
         props.logout();
         navigate("/");
     }
+    function toFavorites(e: React.MouseEvent): void {
+        e.stopPropagation();
+        navigate("/favorites");
+    }
+
     function showLogout() {
         setLogoutShown(true);
     }
@@ -43,6 +48,15 @@ export default function Header(props: {
                             onClick={toProfile}
                             onMouseEnter={showLogout}>
                             My Profile
+                        </p>
+                        <p
+                            className={`header__favorites ${
+                                logoutShown ? "header__favorites--shown" : ""
+                            }`}
+                            onClick={toFavorites}
+                            onMouseEnter={showLogout}
+                            onMouseLeave={hideLogout}>
+                            Favorites
                         </p>
                         <p
                             className={`header__logout ${

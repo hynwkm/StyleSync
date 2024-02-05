@@ -144,7 +144,7 @@ const OtherUserProfilePage: React.FC<OtherUserProfilePageProps> = () => {
                     </div>
                 </div>
             </div>
-            <Outfits outfits={outfits} currentUser={false} />
+            <Outfits outfits={outfits} currentUser={false} favPage={false} />
         </motion.div>
     );
 };

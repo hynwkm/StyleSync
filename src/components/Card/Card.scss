@@ -18,4 +18,15 @@
         object-fit: cover; /* Ensures the image covers the area without stretching */
         object-position: center;
     }
+    &__placeholder {
+        width: 100%; /* Ensures the placeholder takes the full width of the card */
+        height: 100%; /* Matches the height of the image for consistency */
+        display: flex; /* Enables flexbox properties for center alignment */
+        justify-content: center; /* Centers content horizontally */
+        align-items: center; /* Centers content vertically */
+        background-color: #f0f0f0; /* A light grey background for the placeholder */
+        color: #333; /* Text color */
+        font-size: 1rem; /* Text size */
+        border-radius: 0.625rem;
+    }
 }
