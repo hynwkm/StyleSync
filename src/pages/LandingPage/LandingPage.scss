@@ -1,9 +1,12 @@
+@use "../../styles/mixin" as *;
+@use "../../styles/variables" as *;
+@use "../../styles/typography" as *;
+
 .userlist {
     width: 100%;
     display: flex;
     justify-content: space-around;
     padding: 3rem 0;
-    margin-bottom: 10rem;
     flex-wrap: wrap;
     max-height: 31vw;
     overflow: hidden;
@@ -29,5 +32,17 @@
     text-align: center;
     &__description {
         line-height: 1.5;
+        font-size: 1.125rem;
+    }
+}
+
+.landing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__start {
+        @include buttonlike;
+        margin-top: 2rem;
+        width: 10rem;
     }
 }

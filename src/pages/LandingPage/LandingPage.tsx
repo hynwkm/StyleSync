@@ -1,6 +1,7 @@
 import axios from "axios";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Card from "../../components/Card/Card";
 import bannerImage from "../../data/banner.jpg";
 import User from "../../models/users";
@@ -19,8 +20,9 @@ export default function LandingPage({
     userList,
     setUserList,
 }: LandingPageProps) {
-    // const userList = props.userList;
-    // const isLoggedIn = props.isLoggedIn;
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     useEffect(() => {
         const getUsers = async () => {
             try {
@@ -42,6 +44,12 @@ export default function LandingPage({
         };
         getUsers();
     }, [isLoggedIn, setUserList]);
+
+    const navigate = useNavigate();
+    function toMain() {
+        navigate("/discover");
+    }
+
     if (userList.length === -1) {
         return <></>;
     }
@@ -78,7 +86,7 @@ export default function LandingPage({
                 <div className="userlist">
                     {
                         <>
-                            {userList.map((user: User) => {
+                            {userList.slice(0, 4).map((user: User) => {
                                 return (
                                     <Card
                                         cardDetails={user}
@@ -89,6 +97,9 @@ export default function LandingPage({
                             })}
                         </>
                     }
+                </div>
+                <div className="landing__start" onClick={toMain}>
+                    GET STARTED
                 </div>
             </section>
         </motion.div>

@@ -17,6 +17,9 @@ const OtherUserProfilePage: React.FC<OtherUserProfilePageProps> = () => {
     const [outfits, setOutfits] = useState<Outfit[]>([]);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    useEffect(() => {
         const getOtherUserProfile = async () => {
             try {
                 const response = await axios.get<User>(
@@ -31,7 +34,6 @@ const OtherUserProfilePage: React.FC<OtherUserProfilePageProps> = () => {
                         new Date(response.data.dob).toLocaleDateString(
                             "en-CA",
                             {
-                                // Using Canadian locale as an example to get YYYY-MM-DD format
                                 year: "numeric",
                                 month: "2-digit",
                                 day: "2-digit",
@@ -80,8 +82,13 @@ const OtherUserProfilePage: React.FC<OtherUserProfilePageProps> = () => {
             exit={{ opacity: 0 }}>
             <div className="content profile">
                 <div className="profile__header">
-                    <h2>Welcome to {otherUser.username}'s Wardrobe</h2>
-                    <p>Rating: {otherUser.rating ? otherUser.rating : "0"}/5</p>
+                    <div className="profile__user-rating">
+                        <h2>Welcome to {otherUser.username}'s Wardrobe</h2>
+                        <p>
+                            Rating: {otherUser.rating ? otherUser.rating : "0"}
+                            /5
+                        </p>
+                    </div>
                     <div className="profile__picture-wrapper">
                         <div className="profile__image-container">
                             {otherUser.profile_pic ? (
@@ -97,36 +104,47 @@ const OtherUserProfilePage: React.FC<OtherUserProfilePageProps> = () => {
                     </div>
                 </div>
                 <div className="profile__form">
-                    <div className="profile__detail">
-                        <strong>Username: </strong>
-                        {otherUser.username}
+                    <div className="profile__columns">
+                        <div className="column">
+                            <div className="profile__detail">
+                                <strong>Username: </strong>
+                                {otherUser.username}
+                            </div>
+                            <div className="profile__detail">
+                                <strong>Date of Birth: </strong>
+                                {otherUser.dob}
+                            </div>
+                            <div className="profile__detail">
+                                <strong>Shopping For: </strong>
+                                {!otherUser.gender
+                                    ? "All"
+                                    : otherUser.gender === "Male"
+                                    ? "Men's"
+                                    : "Women's"}
+                            </div>
+                        </div>
+                        <div className="column">
+                            <div className="profile__detail">
+                                <strong>Height(cm): </strong>
+                                {otherUser.height}
+                            </div>
+                            <div className="profile__detail">
+                                <strong>Weight(kg): </strong>
+                                {otherUser.weight}
+                            </div>
+                            <div className="profile__detail">
+                                <strong>Outfit Budget($): </strong>
+                                {otherUser.budget}
+                            </div>
+                        </div>
                     </div>
-                    <div className="profile__detail">
-                        <strong>Date of Birth: </strong>
-                        {otherUser.dob}
-                    </div>
-                    <div className="profile__detail">
-                        <strong>Gender: </strong>
-                        {otherUser.gender}
-                    </div>
-                    <div className="profile__detail">
-                        <strong>Height: </strong>
-                        {otherUser.height} cm
-                    </div>
-                    <div className="profile__detail">
-                        <strong>Weight: </strong>
-                        {otherUser.weight} kg
-                    </div>
-                    <div className="profile__detail">
-                        <strong>Budget: </strong>${otherUser.budget}
-                    </div>
-                    <div className="profile__detail">
+                    <div className="profile__detail profile__detail--bio">
                         <strong>Bio: </strong>
-                        {otherUser.bio}
+                        <div>{otherUser.bio}</div>
                     </div>
                 </div>
             </div>
-            <Outfits outfits={outfits} />
+            <Outfits outfits={outfits} currentUser={false} />
         </motion.div>
     );
 };

@@ -49,14 +49,13 @@ export default function LoginPage(props: { login: () => void }) {
                 password,
             });
             const token = response.data.token;
-            console.log(token);
             localStorage.setItem("token", token);
             props.login();
             setErrorMsg("Sign In Success!");
-            setTimeout(() => navigate("/"), 2000);
+            setTimeout(() => navigate("/discover"), 2000);
         } catch (error) {
             console.error(error);
-            let message = "An unexpected error occurred"; // Default error message
+            let message = "An unexpected error occurred";
             if (axios.isAxiosError(error)) {
                 if (error.response) {
                     message =

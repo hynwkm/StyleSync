@@ -3,23 +3,107 @@
 @use "../../styles/typography" as *;
 
 .profile {
-    display: flex;
-    justify-content: center;
     align-items: flex-start;
-    flex-direction: column;
     background-color: white;
-    gap: 1rem;
-    padding: 2rem 10%; // Ensures consistent padding around the form
     border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
     margin: 2rem;
-    margin-top: 5.8rem;
     margin-bottom: 0;
+    margin-top: 5.8rem;
+    padding: 2rem 10%;
+
+    &__header {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        gap: 1.5rem;
+        justify-content: space-between;
+        margin-bottom: 1.25rem;
+        width: 100%;
+        &--right {
+            display: flex;
+        }
+    }
+    &__user-rating {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    &__form {
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: flex-end;
+        padding-bottom: 1rem;
+        width: 100%;
+    }
+
+    &__detail,
+    &__input {
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 0.5rem;
+        padding: 0.5rem;
+        width: 100%;
+        display: flex;
+        font-size: 1.125rem;
+
+        &:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        &--error {
+            border: 1px solid red;
+        }
+        &--visibility {
+            justify-content: space-between;
+        }
+        &--bio {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-height: 25rem;
+            overflow-y: auto;
+        }
+    }
+
+    &__image-container {
+        align-items: flex-start;
+        background-color: lightgrey;
+        border-radius: 50%;
+        display: flex;
+        height: 5rem;
+        justify-content: center;
+        margin: 0 auto;
+        overflow: hidden;
+        position: relative;
+        width: 5rem;
+    }
+
+    &__image-label {
+        background-color: white;
+        border-radius: 50%;
+        border: solid 1px $secondary-bg;
+        bottom: 0;
+        cursor: pointer;
+        display: flex;
+        padding: 0.3rem;
+        position: absolute;
+        right: 0;
+    }
+
     &__add-label {
         @include buttonlike;
-        height: 2.5rem;
-
         cursor: pointer;
+        height: 2.5rem;
     }
+
     &__add-outfit {
         display: none;
     }
@@ -30,29 +114,7 @@
             background-color: white;
         }
     }
-    &__image-label {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        padding: 0.3rem;
-        background-color: white;
-        border-radius: 50%;
-        border: solid 1px $secondary-bg;
-        display: flex;
-        cursor: pointer;
-    }
-    &__header {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        align-items: center;
-        margin-bottom: 1.25rem; // Adjust based on your layout
-        flex-direction: row;
-        gap: 1rem;
-        &--right {
-            display: flex;
-        }
-    }
+
     &__content {
         width: 100%;
         display: flex;
@@ -66,17 +128,6 @@
         border-radius: 8px;
     }
 
-    &__form {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        width: 100%;
-        border-bottom: 1px solid black;
-        border-top: 1px solid black;
-        justify-content: flex-end;
-        padding-bottom: 1rem;
-    }
-
     &__columns {
         display: flex;
         justify-content: space-between;
@@ -85,28 +136,9 @@
         .column {
             flex: 1;
             &:not(:last-child) {
-                margin-right: 10px; // Adjust spacing between columns
+                margin-right: 10px;
             }
         }
-    }
-
-    &__detail,
-    &__input {
-        width: 100%;
-        padding: 0.5rem;
-        margin-top: 0.5rem;
-
-        border-radius: 4px;
-        box-sizing: border-box;
-
-        &:focus {
-            border-color: #007bff;
-            outline: none;
-        }
-    }
-
-    &__detail--error {
-        border: 1px solid red;
     }
 
     &__label {
@@ -117,10 +149,10 @@
 
     &__edit-submit {
         @include buttonlike;
-        padding: 0.75rem 1.5rem;
-        width: auto;
         cursor: pointer;
+        padding: 0.75rem 1.5rem;
         transition: background-color 0.3s;
+        width: auto;
 
         &:hover {
             background-color: darken($color: #007bff, $amount: 5%);
@@ -138,37 +170,25 @@
         }
     }
     &__image {
-        position: absolute;
-        top: 0;
         left: 0;
-
         object-fit: cover;
         object-position: center top;
+        position: absolute;
+        top: 0;
     }
-    &__image-container {
-        position: relative;
-        align-items: flex-start;
-        background-color: lightgrey;
-        border-radius: 50%; // Circular profile image
-        display: flex;
-        justify-content: center;
-        margin: 0 auto; // Center the image
-        overflow: hidden;
-        width: 5rem;
-        height: 5rem;
-    }
+
     &__picture-wrapper {
-        gap: 1rem;
+        align-items: center;
         display: flex;
         flex-direction: row;
-        align-items: center;
+        gap: 1rem;
         position: relative;
     }
     &__image-input {
-        width: 1px;
-        height: 1px;
         color: white;
         cursor: pointer;
+        height: 1px;
+        width: 1px;
     }
 
     &__text-area {
@@ -177,10 +197,16 @@
 }
 
 .readonly {
-    cursor: auto;
     border: none;
+    cursor: auto;
     outline: none;
     &--pic {
         display: none;
     }
+}
+
+.checkbox {
+    margin-left: 1rem;
+    width: 1.25rem;
+    height: 1.25rem;
 }
