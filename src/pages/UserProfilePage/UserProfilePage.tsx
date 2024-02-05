@@ -44,7 +44,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             }
             try {
                 const response = await axios.get<User>(
-                    `${API_URL}/api/profile`,
+                    `${API_URL}api/profile`,
                     {
                         headers: { Authorization: `Bearer ${token}` },
                     }
@@ -88,7 +88,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             try {
                 const token = localStorage.getItem("token");
                 const response = await axios.get<Outfit[]>(
-                    `${API_URL}/api/profile/outfits`,
+                    `${API_URL}api/profile/outfits`,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 setOutfits(response.data);
@@ -173,7 +173,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
 
         try {
             const profileUpdateResponse = await axios.put(
-                `${API_URL}/api/profile`,
+                `${API_URL}api/profile`,
                 updatedFormData,
                 {
                     headers: {
@@ -212,7 +212,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             }
             try {
                 const addOutfitResponse = await axios.post(
-                    `${API_URL}/api/profile/outfits`,
+                    `${API_URL}api/profile/outfits`,
                     { outfit_pic_link: encodedImage },
                     {
                         headers: {
@@ -237,7 +237,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             const token = localStorage.getItem("token");
 
             const response = await axios.delete(
-                `${API_URL}/api/profile/outfits`,
+                `${API_URL}api/profile/outfits`,
                 {
                     data: { id: outfitId }, // Include the request body in the `data` property
                     headers: { Authorization: `Bearer ${token}` }, // Include headers as usual

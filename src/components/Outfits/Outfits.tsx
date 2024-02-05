@@ -35,7 +35,7 @@ const Outfits: React.FC<OutfitsProps> = ({
                 if (outfits) {
                     const clothingPromises = outfits.map((outfit) =>
                         axios.get<Clothing>(
-                            `${API_URL}/api/clothing/${outfit.id}`
+                            `${API_URL}api/clothing/${outfit.id}`
                         )
                     );
                     const clothingResponses = await Promise.all(
@@ -60,7 +60,7 @@ const Outfits: React.FC<OutfitsProps> = ({
         const getFavorites = async () => {
             try {
                 const response = await axios.get(
-                    `${API_URL}/api/profile/favorite`,
+                    `${API_URL}api/profile/favorite`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -84,7 +84,7 @@ const Outfits: React.FC<OutfitsProps> = ({
         try {
             if (favorites.some((fav) => fav.outfit_id === outfitId)) {
                 const response = await axios.delete(
-                    `${API_URL}/api/profile/favorite/${outfitId}`,
+                    `${API_URL}api/profile/favorite/${outfitId}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -103,7 +103,7 @@ const Outfits: React.FC<OutfitsProps> = ({
                 console.log("called post req");
 
                 const response = await axios.post(
-                    `${API_URL}/api/profile/favorite/${outfitId}`,
+                    `${API_URL}api/profile/favorite/${outfitId}`,
                     {},
                     {
                         headers: {

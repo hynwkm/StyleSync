@@ -23,7 +23,7 @@ const OtherUserProfilePage: React.FC<OtherUserProfilePageProps> = () => {
         const getOtherUserProfile = async () => {
             try {
                 const response = await axios.get<User>(
-                    `${API_URL}/api/user/${userId}`
+                    `${API_URL}api/user/${userId}`
                 );
                 const userData = {
                     id: response.data.id,
@@ -58,7 +58,7 @@ const OtherUserProfilePage: React.FC<OtherUserProfilePageProps> = () => {
             try {
                 if (userId) {
                     const response = await axios.get<Outfit[]>(
-                        `${API_URL}/api/user/${userId}/outfits`
+                        `${API_URL}api/user/${userId}/outfits`
                     );
                     setOutfits(response.data);
                 } else {

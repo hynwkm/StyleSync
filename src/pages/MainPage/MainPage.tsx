@@ -30,12 +30,12 @@ const MainPage: React.FC<MainPageProps> = ({
         const getUsers = async () => {
             try {
                 if (!isLoggedIn) {
-                    const users = await axios.get(`${API_URL}/api/user`);
+                    const users = await axios.get(`${API_URL}api/user`);
                     setUserList(users.data);
                 } else {
                     const token = localStorage.getItem("token");
                     const users = await axios.get(
-                        `${API_URL}/api/user/loggedin`,
+                        `${API_URL}api/user/loggedin`,
                         { headers: { Authorization: `Bearer ${token}` } }
                     );
                     const userData = users.data.map((item: any[]) => item[0]);

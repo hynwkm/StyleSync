@@ -72,7 +72,7 @@ export default function SignupPage(props: { login: () => void }) {
         }
 
         try {
-            const response = await axios.post(`${API_URL}/api/signup`, {
+            const response = await axios.post(`${API_URL}api/signup`, {
                 email,
                 username,
                 password,

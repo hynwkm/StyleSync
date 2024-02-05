@@ -44,7 +44,7 @@ export default function LoginPage(props: { login: () => void }) {
         }
 
         try {
-            const response = await axios.post(`${API_URL}/api/login`, {
+            const response = await axios.post(`${API_URL}api/login`, {
                 email,
                 password,
             });

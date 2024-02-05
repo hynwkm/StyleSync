@@ -26,7 +26,7 @@ const FavPage: React.FC<MainPageProps> = ({ isLoggedIn }) => {
         const getFavorites = async () => {
             try {
                 const response = await axios.get(
-                    `${API_URL}/api/profile/favorite`,
+                    `${API_URL}api/profile/favorite`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
