@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import capitalizeWords from "../../utils/capitalizeWords";
 
+import { useNavigate } from "react-router-dom";
 import Clothing from "../../models/clothing_items";
 import Outfit from "../../models/outfits";
 import fixUrl from "../../utils/fixUrl";
@@ -75,7 +76,6 @@ const Outfits: React.FC<OutfitsProps> = ({
                         })
                     );
                     setFavorites(favoriteIds);
-                    console.log(response);
                 } catch (error) {
                     console.error("Failed to fetch favorites", error);
                 }
@@ -90,7 +90,6 @@ const Outfits: React.FC<OutfitsProps> = ({
     };
 
     const handleFav = async (outfitId: number) => {
-        console.log("called");
         try {
             if (favorites.some((fav) => fav.outfit_id === outfitId)) {
                 const response = await axios.delete(
@@ -129,6 +128,10 @@ const Outfits: React.FC<OutfitsProps> = ({
             console.log(error);
         }
     };
+    const navigate = useNavigate();
+    function toMain() {
+        navigate("/discover");
+    }
 
     if (!outfits || outfits.length === -1) {
         return <>loading!</>;
@@ -136,7 +139,7 @@ const Outfits: React.FC<OutfitsProps> = ({
 
     if (currentUser && favPage) {
         return (
-            <div className="outfits">
+            <div className="outfits outfits--fav">
                 {favOutfits ? (
                     favOutfits.length > 0 ? (
                         <div className="outfits__list">
@@ -249,7 +252,9 @@ const Outfits: React.FC<OutfitsProps> = ({
                             ))}
                         </div>
                     ) : (
-                        <p>No outfits to display. Share or discover styles!</p>
+                        <p className="empty-fav" onClick={toMain}>
+                            No outfits to display. Share or discover styles!
+                        </p>
                     )
                 ) : (
                     <></>
