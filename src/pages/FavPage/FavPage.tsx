@@ -42,6 +42,8 @@ const FavPage: React.FC<MainPageProps> = ({ isLoggedIn }) => {
         getFavorites();
     }, [token]);
 
+    function setNewFavorites() {}
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
