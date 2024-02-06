@@ -108,7 +108,7 @@ const Outfits: React.FC<OutfitsProps> = ({
 
     if (currentUser && favPage) {
         return (
-            <div className="outfits">
+            <div className="outfits outfits--favorite">
                 {favOutfits ? (
                     favOutfits.length > 0 ? (
                         <div className="outfits__list">
