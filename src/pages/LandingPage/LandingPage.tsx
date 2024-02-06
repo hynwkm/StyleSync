@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Card from "../../components/Card/Card";
 import bannerImage from "../../data/banner.jpg";
 import User from "../../models/users";
+import fixUrl from "../../utils/fixUrl";
 import "./LandingPage.scss";
 
 const API_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
@@ -27,12 +28,12 @@ export default function LandingPage({
         const getUsers = async () => {
             try {
                 if (!isLoggedIn) {
-                    const users = await axios.get(`${API_URL}api/user`);
+                    const users = await axios.get(fixUrl(API_URL, `api/user`));
                     setUserList(users.data);
                 } else {
                     const token = localStorage.getItem("token");
                     const users = await axios.get(
-                        `${API_URL}api/user/loggedin`,
+                        fixUrl(API_URL, `api/user/loggedin`),
                         { headers: { Authorization: `Bearer ${token}` } }
                     );
                     const userData = users.data.map((item: any[]) => item[0]);

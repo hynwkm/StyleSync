@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Outfits from "../../components/Outfits/Outfits";
 import Outfit from "../../models/outfits";
 import User from "../../models/users";
+import fixUrl from "../../utils/fixUrl";
 import "./OtherUserProfilePage.scss";
 
 const API_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
@@ -23,7 +24,7 @@ const OtherUserProfilePage: React.FC<OtherUserProfilePageProps> = () => {
         const getOtherUserProfile = async () => {
             try {
                 const response = await axios.get<User>(
-                    `${API_URL}api/user/${userId}`
+                    fixUrl(API_URL, `api/user/${userId}`)
                 );
                 const userData = {
                     id: response.data.id,
@@ -58,7 +59,7 @@ const OtherUserProfilePage: React.FC<OtherUserProfilePageProps> = () => {
             try {
                 if (userId) {
                     const response = await axios.get<Outfit[]>(
-                        `${API_URL}api/user/${userId}/outfits`
+                        fixUrl(API_URL, `api/user/${userId}/outfits`)
                     );
                     setOutfits(response.data);
                 } else {

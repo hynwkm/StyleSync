@@ -4,6 +4,7 @@ import "./FavPage.scss";
 
 import axios from "axios";
 import Outfits from "../../components/Outfits/Outfits";
+import fixUrl from "../../utils/fixUrl";
 
 const API_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
 
@@ -26,7 +27,7 @@ const FavPage: React.FC<MainPageProps> = ({ isLoggedIn }) => {
         const getFavorites = async () => {
             try {
                 const response = await axios.get(
-                    `${API_URL}api/profile/favorite`,
+                    fixUrl(API_URL, `api/profile/favorite`),
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Outfits from "../../components/Outfits/Outfits";
 import Outfit from "../../models/outfits";
 import User from "../../models/users";
+import fixUrl from "../../utils/fixUrl";
 import "./UserProfilePage.scss";
 
 const API_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
@@ -44,7 +45,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             }
             try {
                 const response = await axios.get<User>(
-                    `${API_URL}api/profile`,
+                    fixUrl(API_URL, `api/profile`),
                     {
                         headers: { Authorization: `Bearer ${token}` },
                     }
@@ -88,7 +89,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             try {
                 const token = localStorage.getItem("token");
                 const response = await axios.get<Outfit[]>(
-                    `${API_URL}api/profile/outfits`,
+                    fixUrl(API_URL, `api/profile/outfits`),
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 setOutfits(response.data);
@@ -173,7 +174,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
 
         try {
             const profileUpdateResponse = await axios.put(
-                `${API_URL}api/profile`,
+                fixUrl(API_URL, `api/profile`),
                 updatedFormData,
                 {
                     headers: {
@@ -212,7 +213,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             }
             try {
                 const addOutfitResponse = await axios.post(
-                    `${API_URL}api/profile/outfits`,
+                    fixUrl(API_URL, `api/profile/outfits`),
                     { outfit_pic_link: encodedImage },
                     {
                         headers: {
@@ -237,7 +238,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             const token = localStorage.getItem("token");
 
             const response = await axios.delete(
-                `${API_URL}api/profile/outfits`,
+                fixUrl(API_URL, `api/profile/outfits`),
                 {
                     data: { id: outfitId }, // Include the request body in the `data` property
                     headers: { Authorization: `Bearer ${token}` }, // Include headers as usual
