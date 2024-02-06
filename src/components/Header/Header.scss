@@ -1,0 +1,72 @@
+@use "../../styles/mixin" as *;
+@use "../../styles/variables" as *;
+@use "../../styles/typography" as *;
+
+.header {
+    width: 100%;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: fixed;
+    top: 0;
+    z-index: 99;
+
+    &__logo {
+        color: $primary-font;
+        cursor: pointer;
+        font-family: "Dancing Script", Arial, sans-serif;
+        font-size: 1.75rem;
+        letter-spacing: 0.03rem;
+        text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white,
+            1px 1px 0 white;
+        &:hover {
+            color: $secondary-font;
+            text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black,
+                1px 1px 0 black;
+        }
+    }
+    &__login {
+        @include buttonlike;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        &:hover {
+            background-color: darken($secondary-bg, 20%);
+        }
+    }
+    &__actions {
+        position: relative;
+    }
+    &__logout {
+        @include buttonlike;
+        background-color: white;
+        color: red;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width: 100%;
+        display: none;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        &--shown {
+            display: block;
+        }
+        &:hover {
+            background-color: darken(white, 20%);
+        }
+    }
+    &__favorites {
+        @include buttonlike;
+        background-color: blue;
+        color: white;
+        display: none;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        &--shown {
+            display: block;
+        }
+        &:hover {
+            background-color: darken(blue, 20%);
+        }
+    }
+}

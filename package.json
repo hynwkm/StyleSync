@@ -11,10 +11,15 @@
         "@types/react": "^18.2.48",
         "@types/react-dom": "^18.2.18",
         "@types/react-router-dom": "^5.3.3",
+        "axios": "^1.6.7",
+        "dotenv": "^16.4.1",
+        "framer-motion": "^11.0.3",
+        "image-to-base64": "^2.2.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.21.3",
         "react-scripts": "5.0.1",
+        "ts-node": "^10.9.2",
         "typescript": "^4.9.5",
         "web-vitals": "^2.1.4"
     },
@@ -43,6 +48,8 @@
         ]
     },
     "devDependencies": {
+        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+        "@types/image-to-base64": "^2.1.2",
         "@types/node-sass": "^4.11.7",
         "sass": "^1.70.0"
     }

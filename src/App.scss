@@ -8,6 +8,7 @@
     margin: 0;
     padding: 0;
     vertical-align: baseline;
+    font-family: "Playfair Display SC", serif; /* Adjust the fallback font as needed */
 }
 
 article,
@@ -47,6 +48,7 @@ textarea {
     margin: 0;
     font-family: inherit;
     font-size: inherit;
+    resize: none;
 }
 
 button,
@@ -62,4 +64,40 @@ textarea {
 button,
 input {
     overflow: visible;
+}
+
+body {
+    background-color: white;
+    font-family: "Playfair Display SC", serif; /* Adjust the fallback font as needed */
+}
+
+.content {
+    margin: 1rem 5%;
+    margin-bottom: 2rem;
+    @media (min-width: 768px) {
+        margin: 1.5rem 7.5%;
+        margin-bottom: 5rem;
+    }
+    @media (min-width: 1024px) {
+        margin: 2rem 10%;
+        margin-bottom: 10rem;
+    }
+}
+
+strong {
+    font-weight: 700;
+}
+
+.loading-msg {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 6rem 10rem;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    font-size: 2rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    z-index: 1000;
 }

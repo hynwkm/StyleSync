@@ -1,0 +1,32 @@
+.card {
+    width: 22%; /* Adjust the width to fit 4-5 cards in a row */
+    margin: 1%; /* Provide some space between cards */
+    border: 1px solid #ddd; /* Optional border */
+    border-radius: 0.625rem; /* Rounded corners */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+    transition: transform 0.3s ease-in-out; /* Smooth transition for hover effect */
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.05); /* Slightly increase size */
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); /* Enhance shadow */
+    }
+    &__image {
+        width: 100%; /* Image takes full width of the card */
+        height: 100%;
+        border-radius: 0.625rem; /* Round top corners of the image */
+        display: block; /* Removes bottom space under image */
+        object-fit: cover; /* Ensures the image covers the area without stretching */
+        object-position: center;
+    }
+    &__placeholder {
+        width: 100%; /* Ensures the placeholder takes the full width of the card */
+        height: 100%; /* Matches the height of the image for consistency */
+        display: flex; /* Enables flexbox properties for center alignment */
+        justify-content: center; /* Centers content horizontally */
+        align-items: center; /* Centers content vertically */
+        background-color: #f0f0f0; /* A light grey background for the placeholder */
+        color: #333; /* Text color */
+        font-size: 1rem; /* Text size */
+        border-radius: 0.625rem;
+    }
+}
