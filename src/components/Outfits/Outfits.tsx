@@ -57,32 +57,32 @@ const Outfits: React.FC<OutfitsProps> = ({
         getClothings();
     }, [outfits]);
 
-    useEffect(() => {
-        const fetchFavorites = async () => {
-            if (token) {
-                try {
-                    const response = await axios.get(
-                        fixUrl(API_URL, `api/profile/favorite`),
-                        {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            },
-                        }
-                    );
-                    const favoriteIds = response.data.map(
-                        (fav: { id: number; outfit_pic_link: string }) => ({
-                            outfit_id: fav.id,
-                        })
-                    );
-                    setFavorites(favoriteIds);
-                } catch (error) {
-                    console.error("Failed to fetch favorites", error);
-                }
-            }
-        };
+    // useEffect(() => {
+    //     const fetchFavorites = async () => {
+    //         if (token) {
+    //             try {
+    //                 const response = await axios.get(
+    //                     fixUrl(API_URL, `api/profile/favorite`),
+    //                     {
+    //                         headers: {
+    //                             Authorization: `Bearer ${token}`,
+    //                         },
+    //                     }
+    //                 );
+    //                 const favoriteIds = response.data.map(
+    //                     (fav: { id: number; outfit_pic_link: string }) => ({
+    //                         outfit_id: fav.id,
+    //                     })
+    //                 );
+    //                 setFavorites(favoriteIds);
+    //             } catch (error) {
+    //                 console.error("Failed to fetch favorites", error);
+    //             }
+    //         }
+    //     };
 
-        fetchFavorites();
-    }, [token]);
+    //     fetchFavorites();
+    // }, [token]);
 
     const handleOutfitShow = (outfitId: number) => {
         setSelectedOutfit(outfitId);
