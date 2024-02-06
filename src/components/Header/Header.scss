@@ -57,7 +57,7 @@
     }
     &__favorites {
         @include buttonlike;
-        background-color: yellow;
+        background-color: blue;
         color: white;
         display: none;
         padding-top: 0.3rem;
@@ -66,7 +66,7 @@
             display: block;
         }
         &:hover {
-            background-color: darken(yellow, 20%);
+            background-color: darken(blue, 20%);
         }
     }
 }

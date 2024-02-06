@@ -57,25 +57,6 @@ const Outfits: React.FC<OutfitsProps> = ({
         getClothings();
     }, [outfits]);
 
-    useEffect(() => {
-        const getFavorites = async () => {
-            try {
-                const response = await axios.get(
-                    fixUrl(API_URL, `api/profile/favorite`),
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                );
-                setFavorites(response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getFavorites();
-    }, [token, favOutfits]);
-
     const handleOutfitShow = (outfitId: number) => {
         setSelectedOutfit(outfitId);
     };
@@ -112,8 +93,6 @@ const Outfits: React.FC<OutfitsProps> = ({
                         },
                     }
                 );
-                console.log(response.data);
-
                 if (response.data) {
                     setFavorites([...favorites, { outfit_id: outfitId }]);
                 }
