@@ -23,6 +23,10 @@ function App() {
     }
 
     useEffect(() => {
+        document.title = "Style Fit -Find your fit with ease";
+    }, []);
+
+    useEffect(() => {
         const token = localStorage.getItem("token");
         setIsLoggedIn(!!token);
     }, []);
