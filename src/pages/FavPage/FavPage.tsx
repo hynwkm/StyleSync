@@ -4,6 +4,7 @@ import "./FavPage.scss";
 
 import axios from "axios";
 import Outfits from "../../components/Outfits/Outfits";
+import Outfit from "../../models/outfits";
 import fixUrl from "../../utils/fixUrl";
 
 const API_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
@@ -15,9 +16,7 @@ interface MainPageProps {
 const FavPage: React.FC<MainPageProps> = ({ isLoggedIn }) => {
     const token = localStorage.getItem("token");
 
-    const [favorites, setFavorites] = useState<
-        { id: number; outfit_pic_link: string }[]
-    >([]);
+    const [favorites, setFavorites] = useState<Outfit[]>([]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -51,7 +50,7 @@ const FavPage: React.FC<MainPageProps> = ({ isLoggedIn }) => {
                 <section className="content fav">
                     <h1 className="fav__title">Your Favorite Outfits</h1>
                     <Outfits
-                        outfits={[]}
+                        outfits={favorites}
                         currentUser={true}
                         favPage={true}
                         favOutfits={favorites}

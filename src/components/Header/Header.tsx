@@ -70,7 +70,6 @@ export default function Header(props: {
                             Logout
                         </p>
                     </div>
-                    {/* <div>View Favorites</div> */}
                 </>
             ) : (
                 <p className="header__login" onClick={toLogin}>

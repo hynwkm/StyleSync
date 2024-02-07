@@ -109,8 +109,6 @@ const Outfits: React.FC<OutfitsProps> = ({
                     );
                 }
             } else {
-                console.log("called post req");
-
                 const response = await axios.post(
                     fixUrl(API_URL, `api/profile/favorite/${outfitId}`),
                     {},
