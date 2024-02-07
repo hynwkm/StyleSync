@@ -147,7 +147,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        setLoading(true);
         let updatedFormData = formData;
         if (fileInputRef.current?.files?.[0]) {
             const file = fileInputRef.current.files[0];
@@ -168,6 +168,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                 }
             } catch (error) {
                 console.error("Error processing file:", error);
+                setLoading(false);
                 return;
             }
         }
@@ -187,9 +188,11 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             setFormData(profileUpdateResponse.data);
             setOriginalFormData(profileUpdateResponse.data);
             setReadOnly(true);
+            setLoading(false);
             navigate("/profile");
         } catch (error) {
             console.error("Error updating profile:", error);
+            setLoading(false);
         }
     };
     const handleAddOutfit = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -326,6 +329,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                                     value={formData.username}
                                     onChange={handleChange}
                                     readOnly={readOnly}
+                                    onFocus={(e) => e.target.select()}
                                 />
                             </div>
                             <div className="profile__detail">
@@ -382,6 +386,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                                     value={formData.height}
                                     onChange={handleChange}
                                     readOnly={readOnly}
+                                    onFocus={(e) => e.target.select()}
                                 />
                             </div>
                             <div className="profile__detail">
@@ -396,6 +401,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                                     value={formData.weight}
                                     onChange={handleChange}
                                     readOnly={readOnly}
+                                    onFocus={(e) => e.target.select()}
                                 />
                             </div>
                             <div className="profile__detail">
@@ -410,6 +416,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                                     value={formData.budget}
                                     onChange={handleChange}
                                     readOnly={readOnly}
+                                    onFocus={(e) => e.target.select()}
                                 />
                             </div>
                         </div>
@@ -426,6 +433,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                             }`}
                             value={formData.bio}
                             onChange={handleChange}
+                            onFocus={(e) => e.target.select()}
                             readOnly={readOnly}></textarea>
                     </div>
                     <div className="profile__detail profile__detail--visibility">

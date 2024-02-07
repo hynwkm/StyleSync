@@ -3,27 +3,29 @@
 @use "../../styles/typography" as *;
 
 .fav {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
+
     &__list {
-        width: auto;
         display: flex;
-        justify-content: flex-start;
-        padding: 3rem 0;
         flex-wrap: wrap;
-        padding-left: 1rem;
+        justify-content: flex-start;
+        padding: 3rem 0 3rem 1rem;
+        width: auto;
+
         @include tablet {
             padding-left: 2rem;
         }
+
         @include desktop {
             padding-left: 3.5rem;
         }
     }
     &__list-wrapper {
+        align-items: flex-start;
         display: flex;
         justify-content: center;
-        align-items: flex-start;
         width: 100%;
     }
 }

@@ -38,8 +38,10 @@ export default function Header(props: {
         setLogoutShown(false);
     }
     return (
-        <header className="header" onClick={toHome}>
-            <h1 className="header__logo">Style Fit</h1>
+        <header className="header">
+            <h1 className="header__logo" onClick={toHome}>
+                Style Fit
+            </h1>
             {props.isLoggedIn ? (
                 <>
                     <div className="header__actions" onMouseOut={hideLogout}>
@@ -68,7 +70,6 @@ export default function Header(props: {
                             Logout
                         </p>
                     </div>
-                    {/* <div>View Favorites</div> */}
                 </>
             ) : (
                 <p className="header__login" onClick={toLogin}>

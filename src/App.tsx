@@ -1,6 +1,6 @@
+import { useCallback, useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { BrowserRouter } from "react-router-dom";
-
-import { useEffect, useState } from "react";
 import "./App.scss";
 import Header from "./components/Header/Header";
 import RoutesComponent from "./components/RoutesComponent/RoutesComponent";
@@ -12,9 +12,12 @@ function App() {
     );
     const [userList, setUserList] = useState<User[]>([]);
 
-    function setUsersList(users: User[]) {
-        setUserList(users);
-    }
+    const setUsersList = useCallback(
+        (users: User[]) => {
+            setUserList(users);
+        },
+        [setUserList]
+    );
     function login() {
         setIsLoggedIn(true);
     }
@@ -28,6 +31,9 @@ function App() {
     }, []);
     return (
         <div className="App">
+            <Helmet>
+                <title>Style Fit</title>
+            </Helmet>
             <BrowserRouter>
                 <Header isLoggedIn={isLoggedIn} logout={logout} />
                 <RoutesComponent

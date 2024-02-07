@@ -11,6 +11,10 @@
     margin: 0 2rem;
     margin-bottom: 5rem;
     padding: 0 10%;
+    &--fav {
+        width: 100%;
+        padding: 3rem;
+    }
     &__purchase-link {
         color: blue;
     }
@@ -94,5 +98,12 @@
     }
     &__item:hover &__image {
         opacity: 0.5;
+    }
+}
+
+.empty-fav {
+    cursor: pointer;
+    &:hover {
+        color: $highlight-font;
     }
 }

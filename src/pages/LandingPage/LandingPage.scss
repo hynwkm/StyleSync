@@ -2,47 +2,50 @@
 @use "../../styles/variables" as *;
 @use "../../styles/typography" as *;
 
-.userlist {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    padding: 3rem 0;
-    flex-wrap: wrap;
-    max-height: 50vw;
-    overflow: hidden;
-}
-
 .banner {
     position: relative;
 
     &__title {
-        top: 50%;
-        position: absolute;
+        font-family: "Playfair Display SC", serif;
         left: 10%;
-        font-family: PlayfairDisplaysSC, Arial;
+        position: absolute;
+        top: 50%;
     }
 }
+
 .subbanner {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-direction: column;
-    margin: 5rem 20%;
     align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    margin: 5rem 20%;
     text-align: center;
+
     &__description {
-        line-height: 1.5;
         font-size: 1.125rem;
+        line-height: 1.5;
     }
 }
 
 .landing {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
+
     &__start {
         @include buttonlike;
         margin-top: 2rem;
         width: 10rem;
     }
+}
+
+.userlist {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-height: 50vw;
+    overflow: hidden;
+    padding: 3rem 0;
+    width: 100%;
 }

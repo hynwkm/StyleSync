@@ -32,6 +32,7 @@ export default function LandingPage({
                     setUserList(users.data);
                 } else {
                     const token = localStorage.getItem("token");
+
                     const users = await axios.get(
                         fixUrl(API_URL, `api/user/loggedin`),
                         { headers: { Authorization: `Bearer ${token}` } }
