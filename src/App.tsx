@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { BrowserRouter } from "react-router-dom";
 import "./App.scss";
@@ -12,9 +12,12 @@ function App() {
     );
     const [userList, setUserList] = useState<User[]>([]);
 
-    function setUsersList(users: User[]) {
-        setUserList(users);
-    }
+    const setUsersList = useCallback(
+        (users: User[]) => {
+            setUserList(users);
+        },
+        [setUserList]
+    );
     function login() {
         setIsLoggedIn(true);
     }

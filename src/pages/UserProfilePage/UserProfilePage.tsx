@@ -147,7 +147,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        setLoading(true);
         let updatedFormData = formData;
         if (fileInputRef.current?.files?.[0]) {
             const file = fileInputRef.current.files[0];
@@ -168,6 +168,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                 }
             } catch (error) {
                 console.error("Error processing file:", error);
+                setLoading(false);
                 return;
             }
         }
@@ -187,9 +188,11 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
             setFormData(profileUpdateResponse.data);
             setOriginalFormData(profileUpdateResponse.data);
             setReadOnly(true);
+            setLoading(false);
             navigate("/profile");
         } catch (error) {
             console.error("Error updating profile:", error);
+            setLoading(false);
         }
     };
     const handleAddOutfit = async (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -3,49 +3,62 @@
 @use "../../styles/typography" as *;
 
 .profile {
-    display: flex;
-    justify-content: center;
     align-items: flex-start;
-    flex-direction: column;
     background-color: white;
-    gap: 1rem;
-    padding: 2rem;
     border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    padding: 2rem;
+    width: 100%;
+
     &__header {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
         align-items: center;
-        margin-bottom: 1.25rem;
-        flex-direction: row;
+        display: flex;
         gap: 1rem;
+        justify-content: space-between;
+        margin-bottom: 1.25rem;
+        width: 100%;
     }
 
-    &__user-rating {
+    &__user-rating,
+    &__picture-wrapper {
+        align-items: center;
         display: flex;
         flex-direction: column;
         gap: 1rem;
     }
-    &__content {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+    &__user-rating {
         align-items: flex-start;
-        background-color: white;
-        gap: 1rem;
-        padding: 2rem;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
+    }
+
+    &__image-container {
+        align-items: flex-start;
+        background-color: lightgrey;
+        border-radius: 50%;
+        display: flex;
+        height: 5rem;
+        justify-content: center;
+        margin: 0 auto;
+        overflow: hidden;
+        width: 5rem;
+    }
+
+    &__image {
+        height: 100px;
+        object-fit: cover;
+        object-position: center top;
+        width: 100px;
     }
 
     &__form {
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
-        width: 100%;
         justify-content: flex-end;
         padding-bottom: 1rem;
+        width: 100%;
     }
 
     &__columns {
@@ -63,23 +76,24 @@
 
     &__detail,
     &__input {
-        width: 100%;
-        padding: 0.5rem;
         border-radius: 4px;
         box-sizing: border-box;
         font-size: 1.125rem;
+        padding: 0.5rem;
+        width: 100%;
 
         &:focus {
             border-color: #007bff;
             outline: none;
         }
-        &--bio {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            max-height: 25rem;
-            overflow-y: auto;
-        }
+    }
+
+    &__detail--bio {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        max-height: 25rem;
+        overflow-y: auto;
     }
 
     &__detail--error {
@@ -92,12 +106,13 @@
         text-align: left;
     }
 
-    &__edit-submit {
+    &__edit-submit,
+    &__toggle-edit {
         @include buttonlike;
-        padding: 0.75rem 1.5rem;
-        width: auto;
         cursor: pointer;
+        padding: 0.75rem 1.5rem;
         transition: background-color 0.3s;
+        width: auto;
 
         &:hover {
             background-color: darken($color: #007bff, $amount: 5%);
@@ -105,54 +120,26 @@
     }
 
     &__toggle-edit {
-        cursor: pointer;
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-
         &:hover {
             color: $secondary-font;
             background-color: $secondary-bg;
         }
     }
-    &__image {
-        object-fit: cover;
-        object-position: center top;
-        width: 100px;
-        height: 100px;
-    }
-    &__image-container {
-        align-items: flex-start;
-        background-color: lightgrey;
-        border-radius: 50%;
-        display: flex;
-        height: 200px;
-        justify-content: center;
-        margin: 0 auto;
-        overflow: hidden;
-        width: 5rem;
-        height: 5rem;
-    }
-    &__picture-wrapper {
-        gap: 1rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    &__image-input {
-        width: 1px;
-        height: 1px;
-        color: white;
-        cursor: pointer;
-    }
+
+    &__image-input,
     &__text-area {
         width: 100%;
+    }
+    &__text-area {
+        min-height: 6rem;
     }
 }
 
 .readonly {
-    cursor: auto;
     border: none;
+    cursor: auto;
     outline: none;
+
     &--pic {
         display: none;
     }
