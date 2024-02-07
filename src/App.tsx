@@ -1,6 +1,6 @@
-import { BrowserRouter } from "react-router-dom";
-
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
+import { BrowserRouter } from "react-router-dom";
 import "./App.scss";
 import Header from "./components/Header/Header";
 import RoutesComponent from "./components/RoutesComponent/RoutesComponent";
@@ -28,6 +28,9 @@ function App() {
     }, []);
     return (
         <div className="App">
+            <Helmet>
+                <title>Style Fit</title>
+            </Helmet>
             <BrowserRouter>
                 <Header isLoggedIn={isLoggedIn} logout={logout} />
                 <RoutesComponent
