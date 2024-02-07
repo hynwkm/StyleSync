@@ -329,6 +329,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                                     value={formData.username}
                                     onChange={handleChange}
                                     readOnly={readOnly}
+                                    onFocus={(e) => e.target.select()}
                                 />
                             </div>
                             <div className="profile__detail">
@@ -385,6 +386,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                                     value={formData.height}
                                     onChange={handleChange}
                                     readOnly={readOnly}
+                                    onFocus={(e) => e.target.select()}
                                 />
                             </div>
                             <div className="profile__detail">
@@ -399,6 +401,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                                     value={formData.weight}
                                     onChange={handleChange}
                                     readOnly={readOnly}
+                                    onFocus={(e) => e.target.select()}
                                 />
                             </div>
                             <div className="profile__detail">
@@ -413,6 +416,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                                     value={formData.budget}
                                     onChange={handleChange}
                                     readOnly={readOnly}
+                                    onFocus={(e) => e.target.select()}
                                 />
                             </div>
                         </div>
@@ -429,6 +433,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                             }`}
                             value={formData.bio}
                             onChange={handleChange}
+                            onFocus={(e) => e.target.select()}
                             readOnly={readOnly}></textarea>
                     </div>
                     <div className="profile__detail profile__detail--visibility">
