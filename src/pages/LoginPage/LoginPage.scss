@@ -18,7 +18,10 @@
         gap: 1rem;
         justify-content: center;
         padding: 2rem;
-        width: 33%;
+        width: 100%;
+        @include desktop {
+            width: 33%;
+        }
     }
 
     &__label {
