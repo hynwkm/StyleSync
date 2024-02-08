@@ -6,6 +6,10 @@
     align-items: center;
     display: flex;
     flex-direction: column;
+    margin-top: 4rem;
+    @include desktop {
+        margin-top: 0;
+    }
 
     &__list-wrapper {
         align-items: flex-start;
@@ -18,15 +22,15 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
-        padding: 3rem 0 3rem 1rem;
+        padding: 1rem 0 1rem 1rem;
         width: auto;
 
         @include tablet {
-            padding-left: 2rem;
+            padding: 2rem 0 2rem 2rem;
         }
 
         @include desktop {
-            padding-left: 3.5rem;
+            padding: 3rem 0 3rem 3.5rem;
         }
     }
 }

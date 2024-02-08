@@ -6,20 +6,37 @@
     align-items: flex-start;
     display: flex;
     justify-content: space-between;
-    padding: 1rem 2rem;
+    padding: 0.5rem;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 99;
+    background-color: white;
+
+    @include tablet {
+        padding: 0.75rem 1.5rem;
+    }
+    @include desktop {
+        padding: 1rem 2rem;
+        background-color: transparent;
+    }
 
     &__logo {
         color: $primary-font;
         cursor: pointer;
         font-family: "Dancing Script", Arial, sans-serif;
-        font-size: 1.75rem;
+        font-size: 1.25rem; /* Font size for mobile */
         letter-spacing: 0.03rem;
         text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white,
             1px 1px 0 white;
+
+        @include tablet {
+            font-size: 1.5rem; /* Font size for tablet */
+        }
+
+        @include desktop {
+            font-size: 1.75rem; /* Font size for desktop */
+        }
         &:hover {
             color: $secondary-font;
             text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black,

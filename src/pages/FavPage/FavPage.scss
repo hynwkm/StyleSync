@@ -6,6 +6,14 @@
     align-items: center;
     display: flex;
     flex-direction: column;
+    margin-top: 3rem;
+
+    @include tablet {
+        margin-top: 4rem;
+    }
+    @include desktop {
+        margin-top: 0;
+    }
 
     &__list {
         display: flex;

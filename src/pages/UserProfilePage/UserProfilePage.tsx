@@ -495,7 +495,8 @@ const UserProfilePage: React.FC<UserProfilePageProps> = () => {
                         type="file"
                         className="profile__add-outfit"
                         onChange={(e) => handleAddOutfit(e)}
-                        accept="image/*"></input>
+                        accept="image/*"
+                        capture="user"></input>
                 </label>
             </form>
 

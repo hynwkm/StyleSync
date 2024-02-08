@@ -2,14 +2,12 @@
 
 ## Overview
 
-Style Fit is a personalized fashion recommendation and social shopp# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Style Fit is a personalized fashion recommendation app designed to make fashion choices easy. Look towards others for inspiration or share your favorite outfits!
 
 ### `npm start`
-
-Runs the app in the development mode.\
+Runs the app.
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Also deployed on [style-fit.netlify.app/](https://style-fit.netlify.app/)
 
 ### Problem
 
@@ -30,7 +28,6 @@ Style Fit aims to connect provide users with a more casual experience, connectin
 **User Profiles:**
 
 -   Users can create profiles by inputting their height, weight, and body style.
--   Option to add style preferences and budget constraints to enhance personalized recommendations.
 
 **Discover Similar Styles:**
 
@@ -46,15 +43,6 @@ Style Fit aims to connect provide users with a more casual experience, connectin
 -   Users can upload pictures of their outfits to share with the community.
 -   Automatically provides links to purchase the item or the entire outfit directly if bought through the app link.
 
-**User Rating System:**
-
--   Users seeking guidance can rate individuals who provide fashion suggestions.
-
-**Recommendation Tags:**
-
--   Allow users to tag others with descriptors such as "budget-friendly," "trendy," "helpful," etc.
--   Use tags to refine and improve the recommendation algorithm, ensuring more accurate suggestions for users with similar requirements.
-
 ## Implementation
 
 #### Tech Stack
@@ -63,22 +51,22 @@ Style Fit aims to connect provide users with a more casual experience, connectin
     - React
     - react-router
     - axios
+    - typescript
 2. **Backend:**
     - Node JS
+    - typescript
     - Express
     - MySQL
     - knex
     - bycrypt
+    - jwt
+    - openai (visionai)
 
 #### APIs
 
 -   External APIs:
-    -   Utilize APIs from sources such as Amazon, Walmart, H&M, and others for obtaining information on clothing goods.
-    -   Potential issues: api might not be freely available
-    -   Solution: create dummy data and create internal custom API
-    -   Solution 2:
-        -   Fashion Cloud API v2
-        -   dummyjson api for clothing
+    -   openai: openai's vision api allows users to upload pictures of their entire outfit, saving time and effort on having to upload each clothing individually.
+    -   Once image is uploaded, ai will recognize each article of clothing and give it a name (e.g. Pink Polka-dotted Floral Dress)
 
 #### Sitemap
 
@@ -95,6 +83,7 @@ Style Fit aims to connect provide users with a more casual experience, connectin
 
 -   Displaying user details, including height, weight, and style preferences.
 -   Edit profile option.
+-   Upload outfits option
 
 ##### Discover Styles:
 
@@ -104,34 +93,11 @@ Style Fit aims to connect provide users with a more casual experience, connectin
 ##### Outfit Details:
 
 -   Detailed view of a user's outfit, including individual items and purchase links.
--   Option to save, like, or comment on the outfit.
-
-##### Create Post:
-
--   Form for users to upload and share their outfits.
--   Include tags and details about each item.
-
-### Mockups
-
--   All Mockups, including Database Schema are very much WIP
-
-![landing page](public/Mockups/landing-page.png)
-
-![Outfit details page](public/Mockups/outfit-details-page.png)
+-   Option to save the outfit for later.
 
 #### Data
 
 ![Database Schema](public/Mockups/database-schema.png)
-
-**User Profile Data:**
-
--   Attributes: UserID, Username, Height, Weight, Style Preferences, Budget Constraints.
--   Relationships: One-to-Many with Uploaded Outfits, Ratings, and Recommendations.
-
-**Uploaded Outfits Data:**
-
--   Attributes: OutfitID, UserID (Uploader), Image URL, Item Details (Name, Brand, Price, Purchase Link).
--   Relationships: Many-to-One with User Profile (Uploader), Many-to-Many with Ratings and Tags.
 
 ### Endpoints
 
@@ -141,19 +107,13 @@ Style Fit aims to connect provide users with a more casual experience, connectin
 
 Parameters:
 
--   header auth token
+-   email, password
 
 Response:
 
 ```
 {
-    "id": 123,
-    "username": "fashion99",
-    "height (cm)": 182,
-    "weight (kg)": 70,
-    "style preference": ["Casual", "Vintage"],
-    "budget" : 100,
-    "rating" : 4,
+   "token" : {auth token}
 }
 ```
 
@@ -163,52 +123,137 @@ Response:
 
 Parameters:
 
--   username, password, height, weight, style preferences, budget
+-   email, username, password
 
 Response:
 
 ```
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+   "token" : {auth token}
 }
 ```
 
-**GET /outfits/outfitId**
-
--   Retrieve outfit profile
+**GET /user**
+-   Gets all users
 
 Parameters:
 
--   outfitId
+-   auth token(optional)
 
 Response:
 
 ```
 {
-    "id":" 20,
-    "brand": "Nike",
-    "type": "shirt",
-    "color": "red",
-    "tags" : ["casual", "autumn"],
+   user[] (sorted if auth token)
 }
 ```
 
-**POST /outfits**
-
--   Post a new outfit for a signed in user
+**GET /user/:userId**
+-   Gets one user
 
 Parameters:
 
--   header auth token, brand, type, color, etc.
+-   userId
 
 Response:
 
 ```
 {
-    "id":" 20,
-    "brand": "Nike",
-    "type": "shirt",
-    "color": "red",
+   user
+}
+```
+
+**GET /user/userId/outfits**
+-   Gets one user all outfits
+
+Parameters:
+
+-   userId
+
+Response:
+
+```
+{
+   user outfit[]
+}
+```
+
+**GET/PUT /profile**
+-   Gets / edits profile of logged in user
+
+Parameters:
+
+-   authtoken
+-   profile data (for PUT)
+
+Response:
+
+```
+{
+   profile data
+}
+```
+
+**GET/POST/DELETE /profile/outfits**
+-   Gets / creates / deletes outfits logged in user
+
+Parameters:
+
+-   authtoken
+-   outfit picture link (for POST)
+-   outfit id (for DELETE)
+  
+Response:
+
+```
+{
+   outfit data
+}
+```
+
+**GET /profile/favorite**
+-   Gets saved outfits of logged in user
+
+Parameters:
+
+-   authtoken
+
+Response:
+
+```
+{
+   outfit[]
+}
+```
+
+**POST / DELETE /profile/favorite/:outfitId**
+-   Creates / deletes saved outfits of logged in user
+
+Parameters:
+
+-   authtoken
+-   outfit Id
+
+Response:
+
+```
+{
+   outfit details
+}
+```
+
+**GET /clothing/:outfitId**
+-   Gets clothing information of one outfit
+
+Parameters:
+
+-   outfit Id
+
+Response:
+
+```
+{
+   clothing[]
 }
 ```
 
@@ -218,6 +263,7 @@ Response:
 
 -   Express.js middleware
 -   Before processing requests to protected endpoints (e.g., creating outfits, rating users), the server will verify the validity of the request body.
+-   Password is hashed and stored via bcrypt npm package. Random salt = 10.
 -   User Session will be stored in local storage, and removed on logout. It will be used to render the app accordingly.
 
 # Roadmap
@@ -239,8 +285,8 @@ Response:
 
 -   Initialize the back-end server using Node.js and Express.
 -   Set up basic routes for outfit upload and retrieval.
--   Connect the React front-end with the mock back-end.
--   Ensure outfit upload and display functionalities are working with mocked data.
+-   Connect the React front-end with the back-end.
+-   Ensure outfit upload and display functionalities are working with mock data
 
 ## Nice-to-haves
 
