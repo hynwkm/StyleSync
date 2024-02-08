@@ -102,7 +102,7 @@
         width: 100%;
         flex-direction: column;
         @include tablet {
-            flex: row;
+            flex-direction: row;
         }
 
         .column {
