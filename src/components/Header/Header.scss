@@ -57,8 +57,8 @@
     }
     &__favorites {
         @include buttonlike;
-        background-color: blue;
-        color: white;
+        background-color: salmon;
+        color: black;
         display: none;
         padding-bottom: 0.3rem;
         padding-top: 0.3rem;
@@ -66,7 +66,21 @@
             display: block;
         }
         &:hover {
-            background-color: darken(blue, 20%);
+            background-color: darken(salmon, 20%);
+        }
+    }
+    &__main {
+        @include buttonlike;
+        background-color: peachpuff;
+        color: black;
+        display: none;
+        padding-bottom: 0.3rem;
+        padding-top: 0.3rem;
+        &--shown {
+            display: block;
+        }
+        &:hover {
+            background-color: darken(peachpuff, 20%);
         }
     }
 }
