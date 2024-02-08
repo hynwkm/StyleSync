@@ -12,6 +12,9 @@
     justify-content: center;
     padding: 2rem;
     width: 100%;
+    @include tablet {
+        margin-top: 4.5rem;
+    }
 
     &__header {
         align-items: center;
